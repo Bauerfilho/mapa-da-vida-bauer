@@ -1,0 +1,21 @@
+.review-cycle-strip { padding:16px; border:1px solid color-mix(in srgb,var(--gold) 35%,transparent); border-radius:18px; background:color-mix(in srgb,var(--straw) 38%,var(--surface)); color:var(--ink); min-width:0; }
+.review-cycle-strip header { display:flex; align-items:center; gap:10px; }
+.review-cycle-strip header > svg { color:var(--wine); }
+.review-cycle-strip header > div { flex:1; display:grid; gap:4px; }
+.review-cycle-strip header span { font:400 10px "Jost",sans-serif; text-transform:uppercase; letter-spacing:.12em; color:var(--ink-soft); }
+.review-cycle-strip header strong { font:600 25px/1 "Cormorant Garamond",Georgia,serif; }
+.review-cycle-strip header small { font-size:10px; text-align:right; }
+.review-cycle-strip progress { display:block; width:100%; height:5px; margin:17px 0 7px; border:0; border-radius:5px; overflow:hidden; appearance:none; accent-color:var(--wine); background:color-mix(in srgb,var(--gold) 20%,transparent); }
+.review-cycle-strip progress::-webkit-progress-bar { background:color-mix(in srgb,var(--gold) 20%,transparent); border-radius:5px; }
+.review-cycle-strip progress::-webkit-progress-value { background:var(--wine); border-radius:5px; }
+.review-cycle-strip progress::-moz-progress-bar { background:var(--wine); }
+.rc-dates { display:flex; justify-content:space-between; font-size:10px; color:var(--ink-soft); }
+.review-cycle-strip p { font-size:12px; line-height:1.55; margin:12px 0!important; }
+.rc-actions { display:flex; gap:8px; align-items:center; }
+.rc-actions button, .rc-actions select { min-height:42px; border:1px solid color-mix(in srgb,var(--gold) 50%,transparent); border-radius:10px; background:var(--surface); color:var(--wine); font:400 11px "Jost",sans-serif; padding:8px 10px; }
+.rc-actions button { display:flex; align-items:center; justify-content:center; gap:6px; white-space:nowrap; cursor:pointer; }
+.rc-actions button[aria-pressed=true] { background:var(--wine); color:var(--surface); }
+.rc-actions select { flex:1; min-width:0; width:100%; }
+.review-cycle-strip .rc-selection { display:block; margin-top:11px; color:var(--ink-soft); font-size:10px; line-height:1.5; }
+.review-cycle-strip :is(button,select):focus-visible { outline:2px solid var(--focus); outline-offset:3px; }
+@media(max-width:350px) { .rc-actions { flex-direction:column; align-items:stretch; } }

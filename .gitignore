@@ -1,0 +1,19 @@
+node_modules/
+dist/
+playwright-report/
+test-results/
+*.log
+.DS_Store
+
+# Dados privados e saídas locais nunca acompanham o código publicado.
+*.bauerlife
+.env
+.env.*
+!.env.example
+.private/
+backups/
+exports/
+work/
+*.sqlite
+*.sqlite-*
+*.db

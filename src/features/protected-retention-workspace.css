@@ -1,0 +1,53 @@
+.protected-retention { margin:23px 0; padding:19px; border:1px solid color-mix(in srgb,var(--gold) 34%,transparent); border-radius:22px; background:linear-gradient(155deg,var(--surface),var(--paper)); color:var(--ink); min-width:0; max-width:100%; font-family:"Jost",sans-serif; }
+.protected-retention * { box-sizing:border-box; }
+.protected-retention header { display:flex; gap:11px; align-items:center; }
+.protected-retention header >span { display:grid; place-items:center; width:42px; height:42px; border:1px solid var(--gold); border-radius:50%; color:var(--wine); flex-shrink:0; }
+.protected-retention header >div { flex:1; min-width:0; }
+.protected-retention header h2 { margin:4px 0 0; font:600 26px/1.05 "Cormorant Garamond",Georgia,serif; }
+.protected-retention header .eyebrow { font-size:9px; letter-spacing:.1em; margin:0; color:var(--wine); }
+.protected-retention header button { display:grid; place-items:center; width:40px; height:40px; flex-shrink:0; border:0; background:transparent; color:var(--wine); border-radius:50%; }
+.protected-retention .pr-intro { font-size:13px; line-height:1.65; margin:17px 0; }
+.pr-protected-note { display:flex; align-items:flex-start; gap:10px; background:color-mix(in srgb,var(--gold) 9%,var(--surface)); border:1px solid color-mix(in srgb,var(--gold) 25%,transparent); border-radius:14px; padding:14px; }
+.pr-protected-note >svg { color:var(--wine); flex-shrink:0; }
+.pr-protected-note p { font-size:12px; line-height:1.5; margin:0 0 5px!important; }
+.pr-protected-note small { font-size:11px; line-height:1.5; }
+.pr-counts { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin:20px 0; }
+.pr-counts >div { display:grid; gap:6px; padding-left:12px; border-left:1px solid color-mix(in srgb,var(--gold) 35%,transparent); }
+.pr-counts strong { font:600 32px/1 "Cormorant Garamond",Georgia,serif; }
+.pr-counts small { font-size:11px; line-height:1.4; }
+.pr-list { border-top:1px solid color-mix(in srgb,var(--gold) 25%,transparent); padding:12px 0; }
+.pr-list summary { font-size:12px; color:var(--wine); cursor:pointer; min-height:26px; }
+.pr-list :is(ul,ol) { list-style:none; display:grid; gap:10px; padding:0; margin:12px 0 0; max-height:240px; overflow:auto; }
+.pr-list li { display:flex; justify-content:space-between; gap:12px; font-size:11px; line-height:1.4; }
+.pr-list p { font-size:11px; line-height:1.5; }
+.pr-flow { display:grid; gap:21px; padding-top:13px; }
+.pr-step { display:grid; grid-template-columns:24px minmax(0,1fr); gap:9px; }
+.pr-step >b { font:500 17px "Cormorant Garamond",Georgia,serif; color:var(--gold); border-top:1px solid var(--gold); padding-top:5px; }
+.pr-step h3 { font-size:15px; font-weight:500; margin:0 0 8px; }
+.pr-step p { font-size:12px; line-height:1.6; margin:0 0 12px!important; }
+.pr-step .secondary-cta { width:100%; font-size:12px; min-height:44px; padding:10px; }
+.pr-file { display:flex; gap:8px; align-items:center; position:relative; overflow:hidden; background:var(--surface); border:1px dashed var(--gold); border-radius:12px; padding:13px 11px; min-height:48px; color:var(--wine); cursor:pointer; font-size:12px; }
+.pr-file span { overflow-wrap:anywhere; min-width:0; flex:1; }
+.pr-file input { position:absolute; inset:0; opacity:0; width:100%; cursor:pointer; }
+.pr-password { display:grid; gap:7px; margin:13px 0; }
+.pr-password span { display:flex; align-items:center; gap:6px; font-size:12px; }
+.pr-password input { min-height:45px; border:1px solid var(--control-border,var(--gold)); background:var(--surface); color:var(--ink); border-radius:10px; width:100%; padding:10px; font:400 16px "Jost",sans-serif; }
+.protected-retention .pr-proof { display:flex; gap:8px; align-items:flex-start; margin:12px 0 0!important; color:var(--green); }
+.pr-proof svg { flex-shrink:0; }
+.pr-ack { display:flex; align-items:flex-start; gap:9px; font-size:12px; line-height:1.6; margin-bottom:14px; }
+.pr-ack input { width:19px; height:19px; margin:2px 0 0; flex-shrink:0; accent-color:var(--wine); }
+.pr-apply { min-height:48px; width:100%; background:var(--wine); color:var(--surface); border:1px solid var(--wine-dark); border-radius:12px; padding:11px; font:500 13px "Jost",sans-serif; }
+.pr-success { display:flex; align-items:flex-start; gap:10px; border:1px solid color-mix(in srgb,var(--green) 35%,transparent); border-radius:14px; padding:15px; margin-top:17px; background:color-mix(in srgb,var(--green) 4%,var(--surface)); }
+.pr-success >svg { flex-shrink:0; color:var(--green); }
+.pr-success strong { font-size:13px; font-weight:500; }
+.pr-success p { margin:8px 0!important; font-size:12px; line-height:1.6; }
+.pr-success small { font-size:10px; }
+.protected-retention .pr-error { display:flex; gap:8px; color:var(--red); font-size:12px; line-height:1.6; padding-top:13px; margin:0; }
+.pr-error svg { flex-shrink:0; }
+.protected-retention .pr-footnote { border-top:1px solid color-mix(in srgb,var(--gold) 22%,transparent); padding-top:13px; margin:17px 0 0; font-size:10px; line-height:1.6; }
+.pr-empty { font-size:12px; line-height:1.6; }
+.protected-retention button { cursor:pointer; }
+.protected-retention button:disabled { opacity:.5; cursor:default; }
+.protected-retention :is(input,button,summary):focus-visible { outline:2px solid var(--focus); outline-offset:3px; }
+.pr-file:focus-within { outline:2px solid var(--focus); outline-offset:3px; }
+@media(max-width:350px) { .protected-retention { padding:15px; } .protected-retention header >span { display:none; } .pr-step { grid-template-columns:20px minmax(0,1fr); gap:7px; } }

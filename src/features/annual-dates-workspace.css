@@ -1,0 +1,65 @@
+.annual-workspace { width:100%; min-width:0; margin:18px 0; border:1px solid color-mix(in srgb,var(--gold) 38%,transparent); border-radius:25px; background:linear-gradient(145deg,color-mix(in srgb,var(--surface) 95%,var(--gold) 5%),var(--paper)); padding:20px; color:var(--ink); }
+.annual-workspace *, .annual-form *, .annual-export * { box-sizing:border-box; }
+.annual-header { display:flex; align-items:center; gap:12px; }
+.annual-header > div { flex:1; min-width:0; }
+.annual-header h2 { font-family:"Cormorant Garamond",Georgia,serif; font-size:29px; font-weight:600; line-height:1.05; margin:4px 0 5px; }
+.annual-header p { font-size:12px; margin:0; color:var(--ink-soft); }
+.annual-header .eyebrow { font-size:9px; letter-spacing:.13em; color:var(--wine); }
+.annual-header-icon { width:42px; height:42px; display:grid; place-items:center; border:1px solid color-mix(in srgb,var(--gold) 60%,transparent); color:var(--wine); border-radius:50%; }
+.annual-add { display:grid; place-items:center; border:0; border-radius:50%; min-width:44px; height:44px; color:var(--surface); background:var(--wine); }
+.annual-empty { display:grid; gap:12px; margin-top:18px; }
+.annual-empty p { margin:0; font-size:14px; line-height:1.6; color:var(--ink-soft); }
+.annual-empty .secondary-cta { display:flex; align-items:center; justify-content:center; gap:8px; }
+.annual-list { display:grid; margin-top:18px; }
+.annual-row { display:flex; align-items:center; gap:12px; text-align:left; width:100%; padding:16px 0; border:0; border-top:1px solid color-mix(in srgb,var(--gold) 26%,transparent); color:var(--ink); background:transparent; }
+.annual-date-badge { display:flex; flex-direction:column; align-items:center; justify-content:center; width:48px; min-width:48px; height:60px; border-radius:13px; background:color-mix(in srgb,var(--gold) 12%,var(--surface)); border:1px solid color-mix(in srgb,var(--gold) 25%,transparent); }
+.annual-date-badge small { text-transform:uppercase; letter-spacing:.12em; font-size:10px; color:var(--wine); }
+.annual-date-badge strong { font:600 29px/1.15 "Cormorant Garamond",Georgia,serif; }
+.annual-row-copy { display:grid; gap:3px; flex:1; min-width:0; }
+.annual-row-copy strong { font:500 15px/1.35 "Jost",sans-serif; overflow-wrap:anywhere; }
+.annual-row-copy small { font-size:11px; color:var(--ink-soft); }
+.annual-row-copy em { font-size:11px; font-style:normal; color:var(--muted); }
+.annual-row.is-today .annual-date-badge { background:var(--wine); color:var(--surface); }
+.annual-row.is-today .annual-date-badge small { color:var(--gold-light); }
+.annual-row.is-paused .annual-date-badge { background:var(--paper); }
+.annual-more { min-height:44px; width:100%; background:transparent; color:var(--wine); border:0; font:500 13px "Jost",sans-serif; }
+.annual-export-button { display:flex; width:100%; align-items:center; gap:9px; text-align:left; margin-top:9px; min-height:58px; padding:11px 12px; border:1px solid color-mix(in srgb,var(--gold) 35%,transparent); border-radius:13px; background:color-mix(in srgb,var(--surface) 70%,transparent); color:var(--wine); }
+.annual-export-button > span { display:grid; flex:1; gap:3px; font:500 12px "Jost",sans-serif; }
+.annual-export-button small { color:var(--ink-soft); font-weight:400; font-size:10px; }
+.annual-notice { display:flex; gap:8px; color:var(--ink-soft); font-size:12px; line-height:1.5; margin:13px 0 0; }
+.annual-notice svg { flex-shrink:0; color:var(--green); }
+.annual-form, .annual-export { padding:4px 3px 20px; display:grid; gap:18px; color:var(--ink); font-family:"Jost",sans-serif; }
+.annual-form label, .annual-export > label:not(.annual-checkbox) { display:grid; gap:7px; min-width:0; font-size:13px; font-weight:500; }
+.annual-form :is(input:not([type=checkbox]),select,textarea), .annual-export select { display:block; width:100%; min-height:46px; border:1px solid var(--control-border,var(--gold)); border-radius:11px; padding:11px 12px; background:var(--surface); color:var(--ink); font:400 16px/1.4 "Jost",sans-serif; }
+.annual-form textarea { resize:vertical; }
+.annual-date-fields { display:grid; grid-template-columns:76px minmax(0,1fr); gap:12px; }
+.annual-help, .annual-form label small { font-weight:400; margin:0; color:var(--ink-soft); font-size:12px; line-height:1.55; }
+.annual-kind { display:grid; grid-template-columns:1fr 1.2fr; gap:8px; }
+.annual-kind button { display:flex; flex-direction:column; align-items:center; gap:7px; min-height:74px; border:1px solid color-mix(in srgb,var(--gold) 40%,transparent); border-radius:13px; color:var(--ink-soft); background:var(--surface); font:500 12px "Jost",sans-serif; padding:12px 5px; }
+.annual-kind button[aria-pressed=true] { background:var(--wine); border-color:var(--wine); color:var(--surface); }
+.annual-reminder-fields { margin:0; padding:16px; border:1px solid color-mix(in srgb,var(--gold) 35%,transparent); border-radius:16px; display:grid; gap:14px; }
+.annual-reminder-fields legend { display:flex; gap:8px; padding:0 6px; color:var(--wine); font-size:14px; }
+.annual-reminder-fields p { margin:0; font-size:12px; line-height:1.6; color:var(--ink-soft); }
+.annual-form .annual-checkbox, .annual-export .annual-checkbox { display:flex; align-items:flex-start; gap:10px; font:400 13px/1.5 "Jost",sans-serif; }
+.annual-checkbox input { width:20px; height:20px; margin:0; flex-shrink:0; accent-color:var(--wine); }
+.annual-error { display:block; margin:0; font-size:13px; line-height:1.5; color:var(--red); }
+.annual-export-summary { display:flex; align-items:center; justify-content:center; gap:17px; padding:15px; border-radius:18px; background:color-mix(in srgb,var(--gold) 10%,var(--surface)); color:var(--wine); }
+.annual-export-summary div { display:grid; gap:3px; }
+.annual-export-summary strong { font:600 37px/1 "Cormorant Garamond",Georgia,serif; }
+.annual-export-summary span { font-size:12px; color:var(--ink-soft); }
+.annual-export ul { margin:0; padding-left:21px; display:grid; gap:10px; font-size:13px; line-height:1.6; }
+.annual-export-note { display:flex; gap:10px; margin:0; padding:14px; border-radius:13px; background:var(--paper); border:1px solid color-mix(in srgb,var(--gold) 24%,transparent); color:var(--ink-soft); font-size:12px; line-height:1.6; }
+.annual-export-note svg { flex-shrink:0; color:var(--wine); }
+.annual-workspace :is(button,summary):focus-visible, .annual-form :is(button,input,select,textarea):focus-visible, .annual-export :is(button,input,select):focus-visible { outline:2px solid var(--focus); outline-offset:3px; }
+.annual-workspace button, .annual-form button, .annual-export button { cursor:pointer; }
+.annual-form button:disabled, .annual-export button:disabled { opacity:.5; cursor:default; }
+.annual-form .primary-cta, .annual-export .primary-cta { display:flex; align-items:center; justify-content:center; gap:8px; min-height:49px; }
+.agenda-day-list { display:grid; gap:13px; padding:0; margin:14px 0; list-style:none; }
+.agenda-day-list li + li { padding-top:12px; border-top:1px solid color-mix(in srgb,var(--gold) 25%,transparent); }
+.agenda-day-list strong { display:block; font:500 16px/1.35 "Jost",sans-serif; }
+.agenda-day-list span { display:block; margin-top:4px; font-size:12px; color:var(--ink-soft); }
+.annual-today-alert { display:flex; align-items:center; width:100%; gap:12px; text-align:left; background:color-mix(in srgb,var(--gold) 10%,var(--surface)); border:1px solid color-mix(in srgb,var(--gold) 36%,transparent); border-radius:18px; padding:15px; color:var(--wine); }
+.annual-today-alert > span { display:grid; gap:4px; flex:1; min-width:0; }
+.annual-today-alert strong { font:500 14px "Jost",sans-serif; }
+.annual-today-alert small { font-size:12px; line-height:1.4; color:var(--ink-soft); overflow-wrap:anywhere; }
+@media (max-width:350px) { .annual-workspace { padding:15px; } .annual-header { gap:8px; } .annual-header-icon { display:none; } .annual-date-fields { grid-template-columns:64px minmax(0,1fr); } }
