@@ -15,7 +15,11 @@
     "predev": "npm run check:runtime",
     "dev": "vite",
     "prebuild": "npm run check:runtime",
-    "build": "tsc && vite build && node scripts/prepare-sites-build.mjs"
+    "build": "tsc && vite build && node scripts/prepare-sites-build.mjs",
+    "build:pages": "npm run check:runtime && tsc && node scripts/build-pages.mjs",
+    "test:pages": "node --test tests/pages-build.test.mjs && playwright test --config=tests/pages.config.ts",
+    "test:node:pages": "node --test tests/domain-analytics.test.mjs tests/mentor-action-rules.test.mjs tests/pwa-assets.test.mjs tests/pwa-client.test.mjs tests/pages-build.test.mjs",
+    "validate:pages": "npm run check:runtime && npm run typecheck && npm run test:domain && npm run build:pages && npm run test:node:pages && npm run test:pages"
   },
   "dependencies": {
     "@fontsource/cormorant-garamond": "^5.3.0",

@@ -30,6 +30,7 @@ function createHarness({
   workerSource = swSource,
   sharedStores,
   shellMarker = "cached shell",
+  base = "/",
 } = {}) {
   const listeners = new Map();
   const stores = sharedStores ?? new Map();
@@ -39,10 +40,10 @@ function createHarness({
     fetchImpl: async (input) => {
       const url = new URL(requestUrl(input));
       let body = `asset:${url.pathname}`;
-      if (url.pathname === "/" || url.pathname === "/index.html") {
-        body = `<!doctype html><link rel="stylesheet" href="/assets/app.css"><script src="/assets/app.js"></script><main>${shellMarker}</main>`;
-      } else if (url.pathname === "/assets/app.css") {
-        body = '@font-face{src:url("/assets/mentor.woff2")}';
+      if (url.pathname === base || url.pathname === `${base}index.html`) {
+        body = `<!doctype html><link rel="stylesheet" href="${base}assets/app.css"><script src="${base}assets/app.js"></script><main>${shellMarker}</main>`;
+      } else if (url.pathname === `${base}assets/app.css`) {
+        body = `@font-face{src:url("${base}assets/mentor.woff2")}`;
       }
       return new Response(body, {
         status: 200,
@@ -103,7 +104,7 @@ function createHarness({
   };
 
   const self = {
-    location: { origin },
+    location: { origin, href: `${origin}${base}sw.js` },
     clients: {
       async claim() {
         state.claimed += 1;
@@ -202,9 +203,10 @@ function workerSourceAtVersion(version) {
 }
 
 test("manifest is installable and scoped to the private app", () => {
-  assert.equal(manifest.id, "/");
-  assert.equal(manifest.start_url, "/");
-  assert.equal(manifest.scope, "/");
+  for (const field of ["id", "start_url", "scope"]) {
+    assert.equal(new URL(manifest[field], `${origin}/manifest.webmanifest`).pathname, "/");
+    assert.equal(new URL(manifest[field], `${origin}/mapa-da-vida-bauer/manifest.webmanifest`).pathname, "/mapa-da-vida-bauer/");
+  }
   assert.equal(manifest.display, "standalone");
   assert.ok(manifest.display_override.includes("standalone"));
   assert.equal(manifest.prefer_related_applications, false);
@@ -278,7 +280,7 @@ test("navigation falls back to the offline document without fetching another bui
   const harness = createHarness();
   await harness.dispatchExtendable("install");
   const workerVersion = swSource.match(/SHELL_CACHE_VERSION = "([^"]+)"/)?.[1];
-  const cache = await harness.caches.open(`mentor-bauer-shell-${workerVersion}`);
+  const cache = await harness.caches.open(`mapa-da-vida-bauer-pages-shell-${workerVersion}`);
   await cache.delete("/");
   await cache.delete("/index.html");
 
@@ -298,7 +300,7 @@ test("the version cache stays immutable and executable shell assets fail closed"
   const harness = createHarness();
   await harness.dispatchExtendable("install");
   const workerVersion = swSource.match(/SHELL_CACHE_VERSION = "([^"]+)"/)?.[1];
-  const cache = await harness.caches.open(`mentor-bauer-shell-${workerVersion}`);
+  const cache = await harness.caches.open(`mapa-da-vida-bauer-pages-shell-${workerVersion}`);
   const keysBefore = (await cache.keys()).map((request) => request.url).sort();
 
   let networkCalls = 0;
@@ -360,7 +362,7 @@ test("a entrada de autenticação ChatGPT não é substituída pelo aplicativo e
 
 test("activation deletes only old shell caches and acknowledges explicit updates", async () => {
   const harness = createHarness();
-  await harness.caches.open("mentor-bauer-shell-old");
+  await harness.caches.open("mapa-da-vida-bauer-pages-shell-old");
   await harness.caches.open("user-owned-cache");
   await harness.dispatchExtendable("install");
   assert.equal(harness.state.skipWaiting, 0);
@@ -376,7 +378,7 @@ test("activation deletes only old shell caches and acknowledges explicit updates
 
   await harness.dispatchExtendable("activate");
   const cacheNames = await harness.caches.keys();
-  assert.ok(!cacheNames.includes("mentor-bauer-shell-old"));
+  assert.ok(!cacheNames.includes("mapa-da-vida-bauer-pages-shell-old"));
   assert.ok(cacheNames.includes("user-owned-cache"));
   assert.equal(harness.state.claimed, 1);
 });
@@ -400,8 +402,8 @@ test("vN stays pinned while vN+1 waits and switches only after the explicit upda
 
   assert.equal(next.state.skipWaiting, 0);
   assert.deepEqual(
-    (await next.caches.keys()).filter((name) => name.startsWith("mentor-bauer-shell-")).sort(),
-    [`mentor-bauer-shell-${nextVersion}`, `mentor-bauer-shell-${priorVersion}`].sort(),
+    (await next.caches.keys()).filter((name) => name.startsWith("mapa-da-vida-bauer-pages-shell-")).sort(),
+    [`mapa-da-vida-bauer-pages-shell-${nextVersion}`, `mapa-da-vida-bauer-pages-shell-${priorVersion}`].sort(),
   );
 
   const priorNavigation = await prior.dispatchFetch(navigationRequest("/mentor/hoje"));
@@ -409,7 +411,7 @@ test("vN stays pinned while vN+1 waits and switches only after the explicit upda
 
   // Even if the old cache is partially damaged, it must not leak executable
   // content from the waiting worker's cache via a global caches.match().
-  const priorCache = await prior.caches.open(`mentor-bauer-shell-${priorVersion}`);
+  const priorCache = await prior.caches.open(`mapa-da-vida-bauer-pages-shell-${priorVersion}`);
   await priorCache.delete("/assets/app.js");
   const crossVersionScript = await prior.dispatchFetch(
     shellAssetRequest("/assets/app.js", "script"),
@@ -423,8 +425,8 @@ test("vN stays pinned while vN+1 waits and switches only after the explicit upda
   await next.dispatchExtendable("activate");
 
   const remainingCaches = await next.caches.keys();
-  assert.ok(!remainingCaches.includes(`mentor-bauer-shell-${priorVersion}`));
-  assert.ok(remainingCaches.includes(`mentor-bauer-shell-${nextVersion}`));
+  assert.ok(!remainingCaches.includes(`mapa-da-vida-bauer-pages-shell-${priorVersion}`));
+  assert.ok(remainingCaches.includes(`mapa-da-vida-bauer-pages-shell-${nextVersion}`));
 
   const nextNavigation = await next.dispatchFetch(navigationRequest("/mentor/hoje"));
   assert.match(await nextNavigation.text(), /shell generation N\+1/);
@@ -433,4 +435,24 @@ test("vN stays pinned while vN+1 waits and switches only after the explicit upda
 test("the service worker never opens, clears, or migrates IndexedDB", () => {
   assert.doesNotMatch(swSource, /indexedDB|deleteDatabase|IDBDatabase/);
   assert.match(swSource, /key\.startsWith\(SHELL_CACHE_PREFIX\)/);
+});
+
+test("o worker Pages confina shell e fallback à própria subpasta sem apagar outras PWAs", async () => {
+  const base = "/mapa-da-vida-bauer/";
+  const harness = createHarness({ base });
+  await harness.caches.open("mentor-bauer-shell-private");
+  await harness.caches.open("other-pwa-cache");
+  await harness.dispatchExtendable("install");
+  await harness.dispatchExtendable("activate");
+  assert.ok((await harness.caches.keys()).includes("mentor-bauer-shell-private"));
+  assert.ok((await harness.caches.keys()).includes("other-pwa-cache"));
+  const shellCacheName = (await harness.caches.keys()).find((name) => name.startsWith("mapa-da-vida-bauer-pages-shell-"));
+  const shellCache = await harness.caches.open(shellCacheName);
+  assert.ok((await shellCache.keys()).every((request) => new URL(request.url).pathname.startsWith(base)));
+  assert.ok(await shellCache.match(`${base}assets/mentor.woff2`));
+  assert.equal(await harness.dispatchFetch(navigationRequest("/outra-pwa/")), undefined);
+  assert.equal(await harness.dispatchFetch(navigationRequest(`${base}auth/callback`)), undefined);
+  assert.equal(await harness.dispatchFetch(navigationRequest(`${base}THIRD_PARTY_NOTICES.md`)), undefined);
+  harness.state.fetchImpl = async () => { throw new Error("Sem rede"); };
+  assert.match(await (await harness.dispatchFetch(navigationRequest(`${base}agenda`))).text(), /cached shell/);
 });

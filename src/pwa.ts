@@ -3,7 +3,10 @@
  * Version v6 starts the immutable, user-activated update contract: checking or
  * downloading an update never changes the shell served by the active worker.
  */
-export const MENTOR_PWA_CACHE_VERSION = "2026-09-02-v19";
+export const MENTOR_PWA_CACHE_VERSION = "2026-09-02-v20";
+
+// Vite injeta a base da hospedagem; testes Node e desenvolvimento raiz usam /.
+const PWA_SCOPE = import.meta.env?.BASE_URL ?? "/";
 
 export const PWA_INSTALL_AVAILABLE_EVENT = "mentor-pwa:install-available";
 export const PWA_OFFLINE_READY_EVENT = "mentor-pwa:offline-ready";
@@ -246,7 +249,7 @@ function normalizeReadiness(message: CacheStatusMessage): MentorPwaCacheReadines
 
 async function currentRegistration(): Promise<ServiceWorkerRegistration | null> {
   if (!supportsServiceWorkers()) return null;
-  return (await navigator.serviceWorker.getRegistration("/")) ?? null;
+  return (await navigator.serviceWorker.getRegistration(PWA_SCOPE)) ?? null;
 }
 
 /**
@@ -351,7 +354,7 @@ export async function registerMentorPwa(): Promise<ServiceWorkerRegistration | n
   if (registrationPromise) return registrationPromise;
 
   registrationPromise = navigator.serviceWorker
-    .register("/sw.js", { scope: "/", updateViaCache: "none" })
+    .register(`${PWA_SCOPE}sw.js`, { scope: PWA_SCOPE, updateViaCache: "none" })
     .then((registration) => {
       watchRegistration(registration);
       void navigator.serviceWorker.ready.then((readyRegistration) =>

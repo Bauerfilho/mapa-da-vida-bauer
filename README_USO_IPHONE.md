@@ -4,7 +4,7 @@ O Mentor Bauer é uma PWA local-first, pessoal e privada. Os registros ficam no 
 
 ## Instalar na Tela de Início
 
-1. Abra [o endereço privado](https://mentor-bauer.bauervieira.chatgpt.site) no Safari e entre pessoalmente com sua conta do ChatGPT.
+1. Abra [a versão pessoal no GitHub Pages](https://bauerfilho.github.io/mapa-da-vida-bauer/) no Safari após a publicação concluir. Não há login ChatGPT nesse endereço. Os registros do Site anterior não são transferidos automaticamente: confira o [guia de backup e mudança de endereço](README_GITHUB_PAGES.md).
 2. Compartilhe a página pelo menu do Safari; dependendo do layout, a ação fica no botão **Mais** ou diretamente em **Compartilhar**.
 3. Selecione **Adicionar à Tela de Início**, mantenha **Abrir como App da Web** ativado e conclua em **Adicionar**.
 4. Abra o ícone **Mentor Bauer** com internet e aguarde a conferência do conteúdo essencial para uso offline.

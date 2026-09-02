@@ -2,7 +2,9 @@
 
 Aplicativo pessoal para acompanhar rotina, saúde, estudos, compromissos e finanças. A interface aceita — palha, vinho e dourado — permanece organizada em cinco centros.
 
-[Abrir o aplicativo privado](https://mentor-bauer.bauervieira.chatgpt.site)
+[Abrir a versão pessoal no GitHub Pages](https://bauerfilho.github.io/mapa-da-vida-bauer/)
+
+Esta implantação serve a interface pessoal publicamente, sem login. Os registros continuam locais ao navegador e não são enviados ao repositório. O endereço anterior não compartilha seu banco automaticamente: confira [acesso no celular, backup e publicação Pages](README_GITHUB_PAGES.md) antes de trocar de instalação. A versão compilada fica disponível após o workflow de publicação concluir.
 
 | Centro | Uso principal |
 | --- | --- |
@@ -32,7 +34,7 @@ O registro de tomada informa o que foi relatado, não confirma que um esquema fa
 
 ## Limites explícitos
 
-- Acesso ao site restrito ao proprietário; o banco pessoal continua local.
+- A interface no GitHub Pages é pública; o banco pessoal continua local. A restrição de acesso ao proprietário permanece apenas no Site anterior, que não foi alterado.
 - Não há sincronização automática com Google Drive ou entre aparelhos. Um backup pode ser guardado no destino escolhido pelo usuário.
 - A exportação de calendário é manual. Alterações posteriores no app não atualizam o arquivo já importado.
 - O uso offline foi exercitado em navegador real após carregar a aplicação. Instalação, alertas e permissões no iPhone físico exigem conferência no próprio aparelho.

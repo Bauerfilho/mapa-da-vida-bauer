@@ -1,4 +1,7 @@
-const SHELL_CACHE_PREFIX = "mentor-bauer-shell-";
+const SHELL_CACHE_PREFIX = "mapa-da-vida-bauer-pages-shell-";
+// O worker só administra o diretório em que foi instalado, inclusive no GitHub Pages.
+const APP_BASE = new URL("./", self.location.href).pathname;
+const appPath = (relative) => `${APP_BASE}${relative.replace(/^\//, "")}`;
 // Release invariant: bump this value (and MENTOR_PWA_CACHE_VERSION) for every
 // deployed shell build. A cache is populated only while its worker installs and
 // is read-only afterwards, so an active worker can never adopt a newer index/JS.
@@ -7,7 +10,7 @@ const SHELL_CACHE_PREFIX = "mentor-bauer-shell-";
 // cannot be changed retroactively. It may still fetch the server's newer index
 // before this v6 worker is activated. Opt-in shell pinning is guaranteed from
 // v6 onward, after the user activates this worker once.
-const SHELL_CACHE_VERSION = "2026-09-02-v19";
+const SHELL_CACHE_VERSION = "2026-09-02-v20";
 const SHELL_CACHE = `${SHELL_CACHE_PREFIX}${SHELL_CACHE_VERSION}`;
 
 const CACHE_STATUS_REQUEST = "MENTOR_PWA_CACHE_STATUS";
@@ -31,14 +34,15 @@ const SHELL_FILES = [
   "/icons/icon-192.png",
   "/icons/icon-512.png",
   ...RUNTIME_SHELL_ASSETS,
-];
+].map(appPath);
 const SHELL_FILE_PATHS = new Set(SHELL_FILES);
+const LEGAL_DOCUMENT_PATHS = new Set([appPath("THIRD_PARTY_NOTICES.md")]);
 const STATIC_DESTINATIONS = new Set(["script", "style", "font", "image"]);
 const SENSITIVE_ROUTE = /^\/(?:api|auth|oauth|oauth2|login|logout|signin-with-chatgpt|session|sessions|callback)(?:\/|$)/i;
 const SENSITIVE_QUERY_KEYS = new Set(["access_token", "id_token", "token", "code"]);
 
 function isSensitiveRequest(request, url) {
-  if (request.method !== "GET" || url.origin !== self.location.origin) return true;
+  if (request.method !== "GET" || url.origin !== self.location.origin || !url.pathname.startsWith(APP_BASE)) return true;
   if (
     request.headers.has("authorization") ||
     request.headers.has("range") ||
@@ -46,7 +50,8 @@ function isSensitiveRequest(request, url) {
   ) {
     return true;
   }
-  if (SENSITIVE_ROUTE.test(url.pathname) || url.pathname.startsWith("/.auth/")) return true;
+  const localPath = `/${url.pathname.slice(APP_BASE.length)}`;
+  if (SENSITIVE_ROUTE.test(localPath) || localPath.startsWith("/.auth/")) return true;
   return [...SENSITIVE_QUERY_KEYS].some((key) => url.searchParams.has(key));
 }
 
@@ -63,8 +68,8 @@ function isSafeCacheResponse(response) {
 
 function isShellAsset(request, url) {
   if (SHELL_FILE_PATHS.has(url.pathname)) return true;
-  if (url.pathname.startsWith("/icons/")) return request.destination === "image";
-  if (!url.pathname.startsWith("/assets/")) return false;
+  if (url.pathname.startsWith(appPath("icons/"))) return request.destination === "image";
+  if (!url.pathname.startsWith(appPath("assets/"))) return false;
   return STATIC_DESTINATIONS.has(request.destination);
 }
 
@@ -75,7 +80,7 @@ function assetUrlsFromText(text, baseUrl) {
   for (const match of references) {
     try {
       const candidate = new URL(match[1], baseUrl);
-      if (candidate.origin === self.location.origin && candidate.pathname.startsWith("/assets/")) {
+      if (candidate.origin === self.location.origin && candidate.pathname.startsWith(appPath("assets/"))) {
         urls.add(candidate.href);
       }
     } catch {
@@ -113,15 +118,15 @@ async function storePinnedShell(cache, indexResponse, indexUrl) {
   const directAssets = assetUrlsFromText(indexText, indexUrl);
 
   await cacheAssetGraph(cache, directAssets);
-  await cache.put("/index.html", indexForPath);
-  await cache.put("/", indexForRoot);
+  await cache.put(appPath("index.html"), indexForPath);
+  await cache.put(APP_BASE, indexForRoot);
 }
 
 async function precacheShell() {
   const cache = await caches.open(SHELL_CACHE);
   await cache.addAll(SHELL_FILES);
 
-  const indexUrl = new URL("/index.html", self.location.origin).href;
+  const indexUrl = new URL("index.html", self.location.href).href;
   const indexResponse = await fetch(indexUrl, {
     cache: "reload",
     credentials: "same-origin",
@@ -131,11 +136,11 @@ async function precacheShell() {
 }
 
 async function requiredShellEntries(cache) {
-  const entries = new Set(["/", "/index.html", ...SHELL_FILES]);
-  const indexResponse = await cache.match("/index.html");
+  const entries = new Set([APP_BASE, appPath("index.html"), ...SHELL_FILES]);
+  const indexResponse = await cache.match(appPath("index.html"));
   if (!indexResponse) return [...entries];
 
-  const indexUrl = new URL("/index.html", self.location.origin).href;
+  const indexUrl = new URL("index.html", self.location.href).href;
   const directAssets = assetUrlsFromText(await indexResponse.text(), indexUrl);
   directAssets.forEach((assetUrl) => entries.add(assetUrl));
 
@@ -196,9 +201,9 @@ function replyToMessage(event, message) {
 
 async function cachedNavigationFallback(cache) {
   return (
-    (await cache.match("/index.html")) ??
-    (await cache.match("/")) ??
-    (await cache.match("/offline.html")) ??
+    (await cache.match(appPath("index.html"))) ??
+    (await cache.match(APP_BASE)) ??
+    (await cache.match(appPath("offline.html"))) ??
     new Response("Mentor Bauer indisponível offline.", {
       status: 503,
       headers: { "content-type": "text/plain; charset=utf-8" },
@@ -258,7 +263,7 @@ self.addEventListener("fetch", (event) => {
   const { request } = event;
   const url = new URL(request.url);
 
-  if (isSensitiveRequest(request, url) || url.pathname === "/sw.js") return;
+  if (isSensitiveRequest(request, url) || url.pathname === appPath("sw.js") || LEGAL_DOCUMENT_PATHS.has(url.pathname)) return;
 
   if (request.mode === "navigate") {
     event.respondWith(handleNavigation());
