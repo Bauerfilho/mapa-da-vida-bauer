@@ -1,31 +1,29 @@
-import {
-  ArrowLeft,
-  ArrowRight,
-  BookOpenText,
-  Brain,
-  CalendarBlank,
-  CaretRight,
-  ChartLineUp,
-  Check,
-  CheckCircle,
-  Clock,
-  FirstAid,
-  GraduationCap,
-  Info,
-  Link,
-  ListChecks,
-  NotePencil,
-  Plus,
-  Question,
-  Repeat,
-  ShieldCheck,
-  Sparkle,
-  Target,
-  Timer,
-  TrendUp,
-  Warning,
-  type Icon,
-} from "@phosphor-icons/react";
+import { ArrowLeft } from "@phosphor-icons/react/dist/csr/ArrowLeft";
+import { ArrowRight } from "@phosphor-icons/react/dist/csr/ArrowRight";
+import { BookOpenText } from "@phosphor-icons/react/dist/csr/BookOpenText";
+import { Brain } from "@phosphor-icons/react/dist/csr/Brain";
+import { CalendarBlank } from "@phosphor-icons/react/dist/csr/CalendarBlank";
+import { CaretRight } from "@phosphor-icons/react/dist/csr/CaretRight";
+import { ChartLineUp } from "@phosphor-icons/react/dist/csr/ChartLineUp";
+import { Check } from "@phosphor-icons/react/dist/csr/Check";
+import { CheckCircle } from "@phosphor-icons/react/dist/csr/CheckCircle";
+import { Clock } from "@phosphor-icons/react/dist/csr/Clock";
+import { FirstAid } from "@phosphor-icons/react/dist/csr/FirstAid";
+import { GraduationCap } from "@phosphor-icons/react/dist/csr/GraduationCap";
+import { Info } from "@phosphor-icons/react/dist/csr/Info";
+import { Link } from "@phosphor-icons/react/dist/csr/Link";
+import { ListChecks } from "@phosphor-icons/react/dist/csr/ListChecks";
+import { NotePencil } from "@phosphor-icons/react/dist/csr/NotePencil";
+import { Plus } from "@phosphor-icons/react/dist/csr/Plus";
+import { Question } from "@phosphor-icons/react/dist/csr/Question";
+import { Repeat } from "@phosphor-icons/react/dist/csr/Repeat";
+import { ShieldCheck } from "@phosphor-icons/react/dist/csr/ShieldCheck";
+import { Sparkle } from "@phosphor-icons/react/dist/csr/Sparkle";
+import { Target } from "@phosphor-icons/react/dist/csr/Target";
+import { Timer } from "@phosphor-icons/react/dist/csr/Timer";
+import { TrendUp } from "@phosphor-icons/react/dist/csr/TrendUp";
+import { Warning } from "@phosphor-icons/react/dist/csr/Warning";
+import type { Icon } from "@phosphor-icons/react";
 import { useMemo, useState, type FormEvent, type ReactNode } from "react";
 import { KeyboardInput, KeyboardTextarea } from "../mobile";
 import {

@@ -1,4 +1,5 @@
-import { CalendarDots, ArrowCounterClockwise } from "@phosphor-icons/react";
+import { CalendarDots } from "@phosphor-icons/react/dist/csr/CalendarDots";
+import { ArrowCounterClockwise } from "@phosphor-icons/react/dist/csr/ArrowCounterClockwise";
 import type { ReviewCycle } from "../domain/reviewCycles";
 import { formatSignalDate } from "../domain/metricSeries";
 import "./review-cycle-strip.css";

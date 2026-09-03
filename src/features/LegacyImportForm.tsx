@@ -1,12 +1,10 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import {
-  ArrowCounterClockwise,
-  CheckCircle,
-  FileCode,
-  Info,
-  ShieldCheck,
-  WarningCircle,
-} from "@phosphor-icons/react";
+import { ArrowCounterClockwise } from "@phosphor-icons/react/dist/csr/ArrowCounterClockwise";
+import { CheckCircle } from "@phosphor-icons/react/dist/csr/CheckCircle";
+import { FileCode } from "@phosphor-icons/react/dist/csr/FileCode";
+import { Info } from "@phosphor-icons/react/dist/csr/Info";
+import { ShieldCheck } from "@phosphor-icons/react/dist/csr/ShieldCheck";
+import { WarningCircle } from "@phosphor-icons/react/dist/csr/WarningCircle";
 import {
   applyStagedLegacyImport,
   discardStagedLegacyImport,

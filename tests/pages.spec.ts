@@ -2,6 +2,160 @@ import { expect, test } from "@playwright/test";
 
 const base = "/mapa-da-vida-bauer/";
 
+async function appearancePreference(page: import("@playwright/test").Page) {
+  await page.getByRole("button", { name: "Arquivo", exact: true }).click();
+  await page.getByRole("button", { name: /Preferências/i }).click();
+  return page.getByRole("switch", { name: "Movimento da aurora", exact: true });
+}
+
+async function appearanceHome(page: import("@playwright/test").Page) {
+  await page.getByRole("button", { name: "Voltar ao Arquivo", exact: true }).click();
+  await page.getByRole("button", { name: "Hoje", exact: true }).click();
+}
+
+test("aurora mantém um único botão minimalista, pausa real e tema salvo offline", async ({ page, context }, testInfo) => {
+  const errors: string[] = [];
+  page.on("pageerror", (error) => errors.push(error.message));
+  await page.emulateMedia({ reducedMotion: "no-preference" });
+  await page.goto("./");
+  await page.evaluate(() => document.fonts.ready);
+  await expect(page.locator(".suite-shell")).toHaveAttribute("data-suite-theme", "dark");
+  await expect(page.locator(".suite-quick-controls button")).toHaveCount(1);
+  await expect(page.locator(".suite-quick-controls")).toHaveText("");
+  await expect(page.getByRole("button", { name: "Ativar tema claro", exact: true })).toBeVisible();
+  const header = await page.locator(".brand-header").boundingBox();
+  const toggle = await page.locator(".suite-theme-toggle").boundingBox();
+  expect(header!.y).toBeLessThan(70);
+  expect(toggle!.width).toBeGreaterThanOrEqual(44);
+  expect(toggle!.height).toBeGreaterThanOrEqual(44);
+  expect(toggle!.y + toggle!.height).toBeLessThanOrEqual(header!.y);
+  expect(await page.locator(".brand-name").evaluate((element) => getComputedStyle(element).fontFamily)).toContain("Cormorant Garamond");
+  const webglAvailable = await page.evaluate(() => {
+    const canvas = document.createElement("canvas");
+    const gl = canvas.getContext("webgl");
+    if (!gl) return false;
+    gl.getExtension("WEBGL_lose_context")?.loseContext();
+    return true;
+  });
+  if (webglAvailable) {
+    await expect(page.locator(".suite-backdrop")).toHaveAttribute("data-aurora-state", "ready");
+    const movingA = await page.screenshot();
+    await page.waitForTimeout(650);
+    const movingB = await page.screenshot();
+    expect(movingA.equals(movingB)).toBe(false);
+  } else {
+    await expect(page.locator(".suite-backdrop__fallback")).toBeVisible();
+  }
+  await (await appearancePreference(page)).click();
+  await appearanceHome(page);
+  await page.waitForTimeout(250);
+  const pausedA = await page.screenshot();
+  await page.waitForTimeout(650);
+  const pausedB = await page.screenshot();
+  expect(pausedA.equals(pausedB)).toBe(true);
+  await (await appearancePreference(page)).click();
+  await appearanceHome(page);
+  await page.waitForTimeout(250);
+  if (webglAvailable) {
+    const resumedA = await page.screenshot();
+    await page.waitForTimeout(650);
+    const resumedB = await page.screenshot();
+    expect(resumedA.equals(resumedB)).toBe(false);
+  }
+  await page.screenshot({ path: testInfo.outputPath("aurora-minimalista-390.png") });
+  await page.getByRole("button", { name: "Ativar tema claro", exact: true }).click();
+  await expect(page.locator(".suite-shell")).toHaveAttribute("data-suite-theme", "light");
+  await expect(page.getByRole("button", { name: "Ativar tema escuro", exact: true })).toBeVisible();
+  await page.waitForFunction(() => Boolean(navigator.serviceWorker.controller));
+  await context.setOffline(true);
+  await page.reload();
+  await expect(page.locator(".suite-shell")).toHaveAttribute("data-suite-theme", "light");
+  await page.getByRole("button", { name: "Ativar tema escuro", exact: true }).click();
+  await expect(page.locator(".suite-shell")).toHaveAttribute("data-suite-theme", "dark");
+  await page.setViewportSize({ width: 320, height: 740 });
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+  expect(errors).toEqual([]);
+});
+
+test("redução de movimento estreia com aurora pausada e controle acessível nas preferências", async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await page.goto("./");
+  await expect(page.getByRole("button", { name: "Ativar tema claro", exact: true })).toBeVisible();
+  const motion = await appearancePreference(page);
+  await expect(motion).toHaveAttribute("aria-checked", "false");
+  await motion.click();
+  await expect(motion).toHaveAttribute("aria-checked", "true");
+});
+
+test("preferência geral salva anuncia a pausa efetiva e impede promessa falsa de retomada", async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: "no-preference" });
+  await page.goto("./");
+  const motion = await appearancePreference(page);
+  await expect(motion).toHaveAttribute("aria-checked", "true");
+  await page.getByRole("checkbox", { name: /Movimento reduzido/ }).check();
+  await page.getByRole("button", { name: "Salvar preferências", exact: true }).click();
+  await expect(motion).toBeDisabled();
+  await expect(motion).toHaveAttribute("aria-checked", "false");
+  await expect(page.getByText("Pausado pela opção Movimento reduzido", { exact: true })).toBeVisible();
+  await page.getByRole("checkbox", { name: /Movimento reduzido/ }).uncheck();
+  await page.getByRole("button", { name: "Salvar preferências", exact: true }).click();
+  await expect(motion).toBeEnabled();
+  await expect(motion).toHaveAttribute("aria-checked", "true");
+});
+
+test("sem WebGL, aviso não cobre botão de tema e desaparece no claro", async ({ browser }, testInfo) => {
+  for (const mode of ["native", "preview"] as const) {
+    const context = await browser.newContext({ viewport: mode === "native" ? { width: 390, height: 844 } : { width: 1280, height: 1080 } });
+    try {
+      await context.addInitScript(() => {
+        const original = HTMLCanvasElement.prototype.getContext;
+        HTMLCanvasElement.prototype.getContext = function (this: HTMLCanvasElement, type: string, ...args: unknown[]) {
+          if (type === "webgl" || type === "experimental-webgl") return null;
+          return Reflect.apply(original, this, [type, ...args]);
+        } as typeof original;
+      });
+      const page = await context.newPage();
+      await page.goto(`http://127.0.0.1:4191${base}?${mode}=1`);
+      const warning = page.locator(".suite-backdrop__fallback");
+      await expect(warning).toBeVisible();
+      await expect(page.locator(".suite-backdrop__canvas")).toHaveCSS("visibility", "hidden");
+      const message = await warning.boundingBox();
+      const button = await page.locator(".suite-theme-toggle").boundingBox();
+      const intersects = message!.x < button!.x + button!.width && message!.x + message!.width > button!.x && message!.y < button!.y + button!.height && message!.y + message!.height > button!.y;
+      expect(intersects).toBe(false);
+      await page.screenshot({ path: testInfo.outputPath(`fallback-${mode}.png`) });
+      await page.getByRole("button", { name: "Ativar tema claro", exact: true }).click();
+      await expect(warning).toHaveCount(0);
+      await expect(page.getByRole("button", { name: "Ativar tema escuro", exact: true })).toBeVisible();
+    } finally { await context.close(); }
+  }
+});
+
+test("superfícies corrigidas de Registrar, Arquivo e Internato conservam contraste", async ({ page }) => {
+  const luminance = (value: string) => {
+    const channels = (value.match(/[\d.]+/g) ?? []).slice(0, 3).map(Number).map((channel) => {
+      const c = channel / 255;
+      return c <= 0.04045 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4;
+    });
+    return channels[0] * 0.2126 + channels[1] * 0.7152 + channels[2] * 0.0722;
+  };
+  const contrast = async (text: string, panel: string) => {
+    const foreground = luminance(await page.locator(text).first().evaluate((element) => getComputedStyle(element).color));
+    const background = luminance(await page.locator(panel).first().evaluate((element) => getComputedStyle(element).backgroundColor));
+    expect((Math.max(foreground, background) + 0.05) / (Math.min(foreground, background) + 0.05)).toBeGreaterThanOrEqual(4.5);
+  };
+  await page.goto("./");
+  await page.getByRole("button", { name: "Registrar", exact: true }).click();
+  await contrast(".clinical-shortcut strong", ".clinical-shortcut");
+  await page.getByRole("button", { name: "Arquivo", exact: true }).click();
+  await contrast(".archive-workspace__retention h2", ".archive-workspace__retention");
+  await page.getByRole("button", { name: "Hoje", exact: true }).click();
+  await page.getByRole("button", { name: "Continuar meu dia", exact: true }).click();
+  await expect(page.locator(".isc-header h2")).toBeVisible();
+  expect(luminance(await page.locator(".isc-header h2").evaluate((element) => getComputedStyle(element).color))).toBeGreaterThan(0.7);
+  await contrast("#internato-tab-obstetricia", ".internato-section-tabs");
+});
+
 test("Pages pessoal abre, controla apenas a subpasta e navega cinco centros offline", async ({ page, context }, testInfo) => {
   const failures: string[] = [];
   const errors: string[] = [];

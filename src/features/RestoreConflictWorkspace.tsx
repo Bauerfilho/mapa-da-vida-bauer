@@ -1,11 +1,9 @@
 import { useCallback, useEffect, useState } from "react";
-import {
-  CheckCircle,
-  ClipboardText,
-  FileArrowDown,
-  ShieldCheck,
-  WarningCircle,
-} from "@phosphor-icons/react";
+import { CheckCircle } from "@phosphor-icons/react/dist/csr/CheckCircle";
+import { ClipboardText } from "@phosphor-icons/react/dist/csr/ClipboardText";
+import { FileArrowDown } from "@phosphor-icons/react/dist/csr/FileArrowDown";
+import { ShieldCheck } from "@phosphor-icons/react/dist/csr/ShieldCheck";
+import { WarningCircle } from "@phosphor-icons/react/dist/csr/WarningCircle";
 import {
   createRestoreConflictReviewExport,
   listRestoreConflicts,

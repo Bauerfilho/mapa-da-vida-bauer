@@ -1,5 +1,16 @@
 import { useMemo, useState, type FormEvent } from "react";
-import { ArrowSquareOut, Bell, Cake, CalendarCheck, CalendarDots, CaretRight, Check, Gift, Pause, Plus, ShieldCheck, WarningCircle } from "@phosphor-icons/react";
+import { ArrowSquareOut } from "@phosphor-icons/react/dist/csr/ArrowSquareOut";
+import { Bell } from "@phosphor-icons/react/dist/csr/Bell";
+import { Cake } from "@phosphor-icons/react/dist/csr/Cake";
+import { CalendarCheck } from "@phosphor-icons/react/dist/csr/CalendarCheck";
+import { CalendarDots } from "@phosphor-icons/react/dist/csr/CalendarDots";
+import { CaretRight } from "@phosphor-icons/react/dist/csr/CaretRight";
+import { Check } from "@phosphor-icons/react/dist/csr/Check";
+import { Gift } from "@phosphor-icons/react/dist/csr/Gift";
+import { Pause } from "@phosphor-icons/react/dist/csr/Pause";
+import { Plus } from "@phosphor-icons/react/dist/csr/Plus";
+import { ShieldCheck } from "@phosphor-icons/react/dist/csr/ShieldCheck";
+import { WarningCircle } from "@phosphor-icons/react/dist/csr/WarningCircle";
 import { BottomSheet, KeyboardInput, KeyboardTextarea, useKeyboard } from "../mobile";
 import { recordGenericEvent, shareOrDownloadFile, updateAnnualDate } from "../data";
 import { calendarDayCount, shiftLocalDate } from "../domain/dates";

@@ -1,0 +1,383 @@
+/*
+ * Aparência integrada da suíte Mentor/HUB/Obstetrícia.
+ * Tudo é escopado a .suite-shell: sem tocar src/styles.css, src/mobile/ ou ancestrais do app.
+ */
+
+.suite-shell {
+  --suite-shell-base: #faf6f2;
+  --suite-grid-line: rgba(122, 45, 57, 0.22);
+  --suite-grid-size: 12px;
+  --suite-glow: rgba(106, 18, 26, 0.12);
+  --suite-vignette: rgba(52, 34, 28, 0.08);
+  --suite-panel-strong: #1a150e;
+  position: absolute;
+  inset: 0;
+  isolation: isolate;
+  min-height: 100%;
+  overflow: hidden;
+  background: var(--suite-shell-base);
+  color-scheme: light;
+}
+
+/* O wrapper de conteúdo torna a decoração independente, sem opacity/filter em ancestrais. */
+.suite-shell .suite-content {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  min-height: 100%;
+}
+
+.suite-shell[data-suite-theme="dark"] { color-scheme: dark; }
+.suite-shell[data-suite-theme="dark"] .brand-name { color: var(--ink) !important; }
+
+/* Controles globais: na prévia ficam abaixo da barra simulada; no aparelho usam o topo disponível. */
+.suite-quick-controls {
+  position: absolute;
+  z-index: 19;
+  top: 4px;
+  right: 12px;
+  display: flex;
+  justify-content: flex-end;
+  pointer-events: none;
+}
+.suite-quick-controls .suite-theme-toggle {
+  pointer-events: auto;
+}
+.suite-shell .page { padding-top: 52px; }
+.mobile-app-viewport[data-runtime-mode="preview"] .suite-quick-controls { top: 40px; }
+.mobile-app-viewport[data-runtime-mode="preview"] .suite-shell .page { padding-top: 88px; }
+
+/* BottomSheets vivem num portal irmão; os tokens são espelhados pelo Prototype. */
+.mentor-suite-portal[data-suite-theme="dark"] .bottom-sheet {
+  border: 1px solid var(--gold-light);
+  background: var(--surface);
+  color: var(--ink);
+}
+.mentor-suite-portal[data-suite-theme="dark"] .bottom-sheet :where(input,textarea,select) {
+  background: var(--paper);
+}
+.mentor-suite-portal[data-suite-theme="dark"] .bottom-sheet :where(input,textarea,select):not([aria-invalid="true"]):not([data-invalid="true"]) {
+  color: var(--ink);
+}
+.mentor-suite-portal[data-suite-theme="dark"] .bottom-sheet [aria-invalid="true"] { border-color:var(--red); }
+
+.suite-backdrop {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse at 70% 34%, var(--suite-glow), transparent 62%),
+    var(--suite-shell-base);
+}
+
+.suite-backdrop__canvas,
+.suite-backdrop__grid,
+.suite-backdrop__vignette {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* O canvas é a única camada com opacidade; o conteúdo nunca é velado. */
+.suite-backdrop__canvas {
+  opacity: 0;
+  transition: opacity 240ms ease;
+}
+
+.suite-shell[data-suite-theme="dark"] .suite-backdrop__canvas {
+  opacity: 0.88;
+}
+.suite-shell[data-suite-theme="dark"] .suite-backdrop[data-aurora-state="fallback"] .suite-backdrop__canvas {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.suite-backdrop__grid {
+  background-image:
+    linear-gradient(var(--suite-grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--suite-grid-line) 1px, transparent 1px);
+  background-size: var(--suite-grid-size) var(--suite-grid-size);
+}
+
+.suite-shell[data-suite-theme="dark"] .suite-backdrop__grid {
+  background-image:
+    linear-gradient(var(--suite-grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--suite-grid-line) 1px, transparent 1px);
+}
+
+.suite-backdrop__vignette {
+  background:
+    linear-gradient(90deg, var(--suite-vignette), transparent 28%, transparent 72%, var(--suite-vignette)),
+    linear-gradient(var(--suite-vignette), transparent 38%, var(--suite-vignette));
+}
+
+.suite-backdrop__fallback {
+  position: absolute;
+  z-index: 2;
+  top: 4px;
+  left: 12px;
+  right: 70px;
+  max-width: none;
+  margin: 0;
+  padding: 7px 9px;
+  border: 1px solid var(--control-border);
+  border-radius: 8px;
+  background: var(--surface);
+  color: var(--ink-soft);
+  font: 500 10px/1.35 "Jost", sans-serif;
+  pointer-events: none;
+}
+.mobile-app-viewport[data-runtime-mode="preview"] .suite-backdrop__fallback { top:40px; }
+
+/* Mentor: vinho/rubi vivo. */
+.suite-shell[data-suite-theme="dark"][data-suite-module="mentor"] {
+  --suite-shell-base: #100f16;
+  --suite-grid-line: rgba(226, 59, 89, 0.12);
+  --suite-glow: rgba(125, 19, 50, 0.22);
+  --suite-vignette: rgba(8, 7, 12, 0.22);
+  --suite-panel-strong: #17121a;
+  --paper: #121018;
+  --paper-warm: #17121b;
+  --surface: #1b151e;
+  --ink: #fff3f0;
+  --ink-soft: #dfcbd2;
+  --muted: #bba6ae;
+  --wine: #df4562;
+  --wine-dark: #7d1834;
+  --gold: #e4b86d;
+  --gold-light: #714e59;
+  --green: #63cb94;
+  --blue: #a8baff;
+  --blue-select: #6378bd;
+  --blue-soft: #2a3452;
+  --navy: #c0caf4;
+  --red: #ff7a83;
+  --orange: #f4aa76;
+  --focus: #ffd487;
+  --control-border: #a76174;
+}
+
+/* HUB: petróleo e azul-teal. */
+.suite-shell[data-suite-theme="dark"][data-suite-module="hub"] {
+  --suite-shell-base: #0d171a;
+  --suite-grid-line: rgba(39, 186, 184, 0.11);
+  --suite-glow: rgba(10, 96, 100, 0.23);
+  --suite-vignette: rgba(4, 14, 16, 0.24);
+  --suite-panel-strong: #112329;
+  --paper: #0e1a1e;
+  --paper-warm: #102126;
+  --surface: #14282d;
+  --ink: #effcfb;
+  --ink-soft: #c4dfdd;
+  --muted: #9dbab8;
+  --wine: #32b8b1;
+  --wine-dark: #126967;
+  --gold: #8bd7c6;
+  --gold-light: #396c69;
+  --green: #69d4b7;
+  --blue: #8dcaf4;
+  --blue-select: #4f8db5;
+  --blue-soft: #183a4b;
+  --navy: #accfee;
+  --red: #ff9295;
+  --orange: #f5b27d;
+  --focus: #b8f4e4;
+  --control-border: #4b9997;
+}
+
+/* Obstetrícia Clara: verde/esmeralda, sem transformar o Mentor em uma quarta cor. */
+.suite-shell[data-suite-theme="dark"][data-suite-module="obstetricia"] {
+  --suite-shell-base: #101914;
+  --suite-grid-line: rgba(64, 202, 122, 0.11);
+  --suite-glow: rgba(22, 113, 60, 0.24);
+  --suite-vignette: rgba(6, 15, 9, 0.24);
+  --suite-panel-strong: #14261b;
+  --paper: #111c15;
+  --paper-warm: #16261b;
+  --surface: #1b2c20;
+  --ink: #f0fff3;
+  --ink-soft: #c9e2cf;
+  --muted: #a6c2ae;
+  --wine: #3abd76;
+  --wine-dark: #17663d;
+  --gold: #9ddeae;
+  --gold-light: #48765a;
+  --green: #69da91;
+  --blue: #a6d5e4;
+  --blue-select: #5b9b9c;
+  --blue-soft: #1c3e38;
+  --navy: #b8dfdc;
+  --red: #ff9895;
+  --orange: #f0b980;
+  --focus: #c5f4c9;
+  --control-border: #559768;
+}
+
+/* Claro preserva a base editorial; somente a cor de ação muda com o módulo. */
+.suite-shell[data-suite-theme="light"][data-suite-module="mentor"] {
+  --suite-shell-base: #faf6f2;
+  --suite-grid-line: rgba(159, 46, 64, 0.14);
+  --suite-glow: rgba(127, 25, 48, 0.08);
+  --suite-vignette: rgba(79, 50, 42, 0.05);
+  --suite-panel-strong: #1a150e;
+  --wine: #6a121a;
+  --wine-dark: #570e16;
+  --gold: #c79751;
+  --control-border: #a16f35;
+}
+
+.suite-shell[data-suite-theme="light"][data-suite-module="hub"] {
+  --suite-shell-base: #f5fbfa;
+  --suite-grid-line: rgba(22, 121, 126, 0.15);
+  --suite-glow: rgba(29, 126, 126, 0.08);
+  --suite-vignette: rgba(31, 82, 80, 0.05);
+  --suite-panel-strong: #102528;
+  --wine: #137d7c;
+  --wine-dark: #0d6261;
+  --gold: #5f9b94;
+  --control-border: #438c88;
+}
+
+.suite-shell[data-suite-theme="light"][data-suite-module="obstetricia"] {
+  --suite-shell-base: #f6fbf5;
+  --suite-grid-line: rgba(35, 133, 75, 0.15);
+  --suite-glow: rgba(40, 132, 75, 0.08);
+  --suite-vignette: rgba(42, 91, 52, 0.05);
+  --suite-panel-strong: #15311d;
+  --wine: #19753d;
+  --wine-dark: #115a2d;
+  --gold: #6f9f78;
+  --control-border: #559265;
+}
+
+/*
+ * Superfícies explicitamente conhecidas do Prototype: tokens herdados cobrem o resto.
+ * Não há seletor global; a única exceção de !important fica no @media print para ocultar decoração.
+ */
+.suite-shell[data-suite-theme="dark"] .mentor-shell,
+.suite-shell[data-suite-theme="dark"] .app-screen {
+  background:
+    radial-gradient(circle at 100% 0%, var(--suite-glow), transparent 31%),
+    linear-gradient(180deg, rgba(17, 15, 22, 0.15), rgba(17, 15, 22, 0.35));
+  color: var(--ink);
+}
+
+.suite-shell[data-suite-theme="dark"] .bottom-nav,
+.suite-shell[data-suite-theme="dark"] .bottom-sheet,
+.suite-shell[data-suite-theme="dark"] .editorial-card,
+.suite-shell[data-suite-theme="dark"] .pwa-status-strip,
+.suite-shell[data-suite-theme="dark"] .insight-card,
+.suite-shell[data-suite-theme="dark"] .domain-grid button,
+.suite-shell[data-suite-theme="dark"] .field input,
+.suite-shell[data-suite-theme="dark"] .field textarea,
+.suite-shell[data-suite-theme="dark"] .field select {
+  background: var(--surface);
+  color: var(--ink);
+}
+
+.suite-shell[data-suite-theme="dark"] .analysis-card,
+.suite-shell[data-suite-theme="dark"] .mini-signal,
+.suite-shell[data-suite-theme="dark"] .mentor-toast {
+  background: var(--suite-panel-strong);
+  color: var(--ink);
+}
+
+.suite-shell[data-suite-theme="dark"] .sheet-overlay {
+  background: rgba(5, 8, 8, 0.58);
+}
+
+.suite-theme-toggle {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--gold);
+  font: inherit;
+  touch-action: manipulation;
+  cursor: pointer;
+}
+.suite-theme-toggle__face { display:grid;place-items:center;backface-visibility:hidden;animation:suite-theme-turn 200ms ease-out; }
+.suite-theme-toggle:hover { background: color-mix(in srgb,var(--gold) 9%,transparent); }
+.suite-theme-toggle:focus-visible,
+.suite-motion-preference:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+}
+@keyframes suite-theme-turn { from { transform:rotateY(-90deg); } to { transform:rotateY(0); } }
+.suite-motion-preference { display:flex;align-items:center;gap:11px;width:100%;min-height:62px;padding:12px 0;border:0;border-bottom:1px solid var(--gold-light);background:transparent;color:var(--ink);font:inherit;text-align:left;cursor:pointer; }
+.suite-motion-preference>span:nth-child(2) { display:grid;gap:3px;flex:1; }
+.suite-motion-preference strong { font:500 14px/1.3 "Jost",sans-serif; }
+.suite-motion-preference small { color:var(--muted);font:400 11px/1.4 "Jost",sans-serif; }
+.suite-motion-preference__state { color:var(--wine);font:500 11px/1 "Jost",sans-serif; }
+
+/* Correções de contraste medidas em Registrar, Arquivo e Internato. */
+.suite-shell[data-suite-theme="dark"] :is(.archive-workspace,.preferences-workspace,.finance-workspace,.routine-workspace,.studies-workspace) { background:transparent; }
+.suite-shell[data-suite-theme="dark"] .clinical-shortcut { background:var(--surface)!important;border-color:var(--gold-light)!important;color:var(--gold)!important; }
+.suite-shell[data-suite-theme="dark"] .clinical-shortcut strong { color:var(--ink); }
+.suite-shell[data-suite-theme="dark"] .clinical-shortcut :is(small,em) { color:var(--ink-soft); }
+.suite-shell[data-suite-theme="dark"] .archive-workspace__retention { background:var(--surface); }
+.suite-shell[data-suite-theme="dark"] .internato-section-tabs { background:var(--surface);border-color:var(--gold-light); }
+.suite-shell[data-suite-theme="dark"] .internato-section-tabs button { color:var(--ink-soft); }
+.suite-shell[data-suite-theme="dark"] .internato-section-tabs button[aria-selected="true"] { background:var(--wine-dark);color:var(--ink); }
+.suite-shell[data-suite-theme="dark"] .isc-shell {
+  --isc-wine:var(--wine);--isc-wine-deep:var(--ink);--isc-gold:var(--gold);--isc-ink:var(--ink);--isc-muted:var(--muted);--isc-line:var(--gold-light);--isc-straw:var(--surface);
+}
+.suite-shell[data-suite-theme="dark"] .isc-header h2 { color:var(--ink); }
+.suite-shell[data-suite-theme="dark"] :is(.isc-create-toggle,.isc-create-panel,.isc-choice) { background:var(--surface); }
+.suite-shell[data-suite-theme="dark"] :is(.isc-shift-picker select,.isc-time-grid input,.isc-create-grid input) { background:var(--paper);color:var(--ink);color-scheme:dark; }
+.suite-shell[data-suite-theme="dark"] .isc-choice[data-selected="true"] small { color:var(--ink-soft); }
+.suite-shell[data-suite-theme="dark"] .isc-save { background:var(--wine-dark);color:var(--ink);border-color:var(--gold); }
+.suite-shell[data-suite-theme="dark"] .isc-empty { background:var(--surface);color:var(--ink); }
+.suite-shell[data-suite-theme="dark"] .isc-empty p { color:var(--muted); }
+.suite-shell[data-suite-theme="dark"] .isc-feedback .isc-error { color:var(--red); }
+.suite-shell[data-suite-theme="dark"] .isc-feedback .isc-success { color:var(--green); }
+
+@media (prefers-reduced-motion: reduce) {
+  .suite-backdrop__canvas {
+    transition: none;
+  }
+  .suite-theme-toggle__face { animation:none; }
+}
+
+@media print {
+  .suite-backdrop,
+  .suite-backdrop__fallback,
+  .suite-quick-controls,
+  .suite-motion-preference {
+    display: none !important;
+  }
+
+  .suite-shell,
+  .suite-shell[data-suite-theme="dark"] .mentor-shell,
+  .suite-shell[data-suite-theme="dark"] .app-screen,
+  .suite-shell[data-suite-theme="dark"] .bottom-nav,
+  .suite-shell[data-suite-theme="dark"] .bottom-sheet,
+  .suite-shell[data-suite-theme="dark"] .editorial-card,
+  .suite-shell[data-suite-theme="dark"] .pwa-status-strip {
+    background: #fff;
+    color: #111;
+  }
+
+  .suite-shell[data-suite-theme] {
+    --paper: #fff;
+    --paper-warm: #fff;
+    --surface: #fff;
+    --ink: #111;
+    --ink-soft: #333;
+    --muted: #555;
+    --wine: #5a1018;
+    --wine-dark: #5a1018;
+    --gold: #74531f;
+    --gold-light: #bca77d;
+    --control-border: #74531f;
+    color-scheme: light;
+  }
+}

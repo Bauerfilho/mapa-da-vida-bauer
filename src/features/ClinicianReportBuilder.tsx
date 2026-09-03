@@ -1,10 +1,8 @@
-import {
-  CalendarBlank,
-  Check,
-  CheckCircle,
-  FileText,
-  WarningCircle,
-} from "@phosphor-icons/react";
+import { CalendarBlank } from "@phosphor-icons/react/dist/csr/CalendarBlank";
+import { Check } from "@phosphor-icons/react/dist/csr/Check";
+import { CheckCircle } from "@phosphor-icons/react/dist/csr/CheckCircle";
+import { FileText } from "@phosphor-icons/react/dist/csr/FileText";
+import { WarningCircle } from "@phosphor-icons/react/dist/csr/WarningCircle";
 import {
   useId,
   useEffect,

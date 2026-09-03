@@ -4,17 +4,15 @@ import {
   useState,
   type FormEvent,
 } from "react";
-import {
-  CalendarBlank,
-  CalendarPlus,
-  CheckCircle,
-  ClockCountdown,
-  Flag,
-  Info,
-  ListChecks,
-  Target,
-  WarningCircle,
-} from "@phosphor-icons/react";
+import { CalendarBlank } from "@phosphor-icons/react/dist/csr/CalendarBlank";
+import { CalendarPlus } from "@phosphor-icons/react/dist/csr/CalendarPlus";
+import { CheckCircle } from "@phosphor-icons/react/dist/csr/CheckCircle";
+import { ClockCountdown } from "@phosphor-icons/react/dist/csr/ClockCountdown";
+import { Flag } from "@phosphor-icons/react/dist/csr/Flag";
+import { Info } from "@phosphor-icons/react/dist/csr/Info";
+import { ListChecks } from "@phosphor-icons/react/dist/csr/ListChecks";
+import { Target } from "@phosphor-icons/react/dist/csr/Target";
+import { WarningCircle } from "@phosphor-icons/react/dist/csr/WarningCircle";
 import type {
   AgendaEventStatus,
   AgendaGoalTier,

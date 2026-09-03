@@ -1,22 +1,20 @@
 import { EarlyPregnancyReference } from "./ClinicalToolsWorkspace";
-import {
-  Baby,
-  Calculator,
-  CalendarBlank,
-  CaretDown,
-  Check,
-  ClockCounterClockwise,
-  Drop,
-  Heartbeat,
-  Info,
-  Plus,
-  ShieldCheck,
-  Sparkle,
-  Stethoscope,
-  Trash,
-  Warning,
-  type Icon,
-} from "@phosphor-icons/react";
+import { Baby } from "@phosphor-icons/react/dist/csr/Baby";
+import { Calculator } from "@phosphor-icons/react/dist/csr/Calculator";
+import { CalendarBlank } from "@phosphor-icons/react/dist/csr/CalendarBlank";
+import { CaretDown } from "@phosphor-icons/react/dist/csr/CaretDown";
+import { Check } from "@phosphor-icons/react/dist/csr/Check";
+import { ClockCounterClockwise } from "@phosphor-icons/react/dist/csr/ClockCounterClockwise";
+import { Drop } from "@phosphor-icons/react/dist/csr/Drop";
+import { Heartbeat } from "@phosphor-icons/react/dist/csr/Heartbeat";
+import { Info } from "@phosphor-icons/react/dist/csr/Info";
+import { Plus } from "@phosphor-icons/react/dist/csr/Plus";
+import { ShieldCheck } from "@phosphor-icons/react/dist/csr/ShieldCheck";
+import { Sparkle } from "@phosphor-icons/react/dist/csr/Sparkle";
+import { Stethoscope } from "@phosphor-icons/react/dist/csr/Stethoscope";
+import { Trash } from "@phosphor-icons/react/dist/csr/Trash";
+import { Warning } from "@phosphor-icons/react/dist/csr/Warning";
+import type { Icon } from "@phosphor-icons/react";
 import { Fragment, useState, type FormEvent, type ReactNode } from "react";
 import { KeyboardInput, useKeyboard, BottomSheet } from "../mobile";
 import {

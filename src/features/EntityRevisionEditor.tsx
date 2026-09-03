@@ -1,13 +1,11 @@
-import {
-  ArrowCounterClockwise,
-  CheckCircle,
-  ClockCounterClockwise,
-  FloppyDisk,
-  GitDiff,
-  PencilSimple,
-  ShieldCheck,
-  WarningCircle,
-} from "@phosphor-icons/react";
+import { ArrowCounterClockwise } from "@phosphor-icons/react/dist/csr/ArrowCounterClockwise";
+import { CheckCircle } from "@phosphor-icons/react/dist/csr/CheckCircle";
+import { ClockCounterClockwise } from "@phosphor-icons/react/dist/csr/ClockCounterClockwise";
+import { FloppyDisk } from "@phosphor-icons/react/dist/csr/FloppyDisk";
+import { GitDiff } from "@phosphor-icons/react/dist/csr/GitDiff";
+import { PencilSimple } from "@phosphor-icons/react/dist/csr/PencilSimple";
+import { ShieldCheck } from "@phosphor-icons/react/dist/csr/ShieldCheck";
+import { WarningCircle } from "@phosphor-icons/react/dist/csr/WarningCircle";
 import {
   useEffect,
   useMemo,

@@ -1,43 +1,41 @@
 import { useState, type CSSProperties, type FormEvent, type ReactNode } from "react";
-import {
-  ArrowRight,
-  Bed,
-  BookOpenText,
-  Brain,
-  CalendarBlank,
-  ChartBar,
-  Check,
-  CheckCircle,
-  Clock,
-  Coffee,
-  CurrencyCircleDollar,
-  Drop,
-  ForkKnife,
-  Gauge,
-  GraduationCap,
-  Info,
-  Lightbulb,
-  ListChecks,
-  Moon,
-  NotePencil,
-  Package,
-  Pill,
-  Plus,
-  Pulse,
-  Receipt,
-  Repeat,
-  Robot,
-  ShieldCheck,
-  Stethoscope,
-  SunHorizon,
-  Tag,
-  Timer,
-  Tooth,
-  TrendUp,
-  Wallet,
-  WarningCircle,
-  type Icon,
-} from "@phosphor-icons/react";
+import { ArrowRight } from "@phosphor-icons/react/dist/csr/ArrowRight";
+import { Bed } from "@phosphor-icons/react/dist/csr/Bed";
+import { BookOpenText } from "@phosphor-icons/react/dist/csr/BookOpenText";
+import { Brain } from "@phosphor-icons/react/dist/csr/Brain";
+import { CalendarBlank } from "@phosphor-icons/react/dist/csr/CalendarBlank";
+import { ChartBar } from "@phosphor-icons/react/dist/csr/ChartBar";
+import { Check } from "@phosphor-icons/react/dist/csr/Check";
+import { CheckCircle } from "@phosphor-icons/react/dist/csr/CheckCircle";
+import { Clock } from "@phosphor-icons/react/dist/csr/Clock";
+import { Coffee } from "@phosphor-icons/react/dist/csr/Coffee";
+import { CurrencyCircleDollar } from "@phosphor-icons/react/dist/csr/CurrencyCircleDollar";
+import { Drop } from "@phosphor-icons/react/dist/csr/Drop";
+import { ForkKnife } from "@phosphor-icons/react/dist/csr/ForkKnife";
+import { Gauge } from "@phosphor-icons/react/dist/csr/Gauge";
+import { GraduationCap } from "@phosphor-icons/react/dist/csr/GraduationCap";
+import { Info } from "@phosphor-icons/react/dist/csr/Info";
+import { Lightbulb } from "@phosphor-icons/react/dist/csr/Lightbulb";
+import { ListChecks } from "@phosphor-icons/react/dist/csr/ListChecks";
+import { Moon } from "@phosphor-icons/react/dist/csr/Moon";
+import { NotePencil } from "@phosphor-icons/react/dist/csr/NotePencil";
+import { Package } from "@phosphor-icons/react/dist/csr/Package";
+import { Pill } from "@phosphor-icons/react/dist/csr/Pill";
+import { Plus } from "@phosphor-icons/react/dist/csr/Plus";
+import { Pulse } from "@phosphor-icons/react/dist/csr/Pulse";
+import { Receipt } from "@phosphor-icons/react/dist/csr/Receipt";
+import { Repeat } from "@phosphor-icons/react/dist/csr/Repeat";
+import { Robot } from "@phosphor-icons/react/dist/csr/Robot";
+import { ShieldCheck } from "@phosphor-icons/react/dist/csr/ShieldCheck";
+import { Stethoscope } from "@phosphor-icons/react/dist/csr/Stethoscope";
+import { SunHorizon } from "@phosphor-icons/react/dist/csr/SunHorizon";
+import { Tag } from "@phosphor-icons/react/dist/csr/Tag";
+import { Timer } from "@phosphor-icons/react/dist/csr/Timer";
+import { Tooth } from "@phosphor-icons/react/dist/csr/Tooth";
+import { TrendUp } from "@phosphor-icons/react/dist/csr/TrendUp";
+import { Wallet } from "@phosphor-icons/react/dist/csr/Wallet";
+import { WarningCircle } from "@phosphor-icons/react/dist/csr/WarningCircle";
+import type { Icon } from "@phosphor-icons/react";
 import { KeyboardInput, KeyboardTextarea } from "../mobile";
 import { LaboratoryCapture } from "./LaboratoryWorkspace";
 import { todayInTimeZone as laboratoryToday } from "../domain/dates";

@@ -1,17 +1,15 @@
 import { useEffect, useMemo, useState, type FormEvent, type ReactNode } from "react";
-import {
-  ArrowLeft,
-  BookOpen,
-  CheckCircle,
-  Database,
-  FloppyDisk,
-  Info,
-  LockKey,
-  MoonStars,
-  ShieldCheck,
-  TextAa,
-  WarningCircle,
-} from "@phosphor-icons/react";
+import { ArrowLeft } from "@phosphor-icons/react/dist/csr/ArrowLeft";
+import { BookOpen } from "@phosphor-icons/react/dist/csr/BookOpen";
+import { CheckCircle } from "@phosphor-icons/react/dist/csr/CheckCircle";
+import { Database } from "@phosphor-icons/react/dist/csr/Database";
+import { FloppyDisk } from "@phosphor-icons/react/dist/csr/FloppyDisk";
+import { Info } from "@phosphor-icons/react/dist/csr/Info";
+import { LockKey } from "@phosphor-icons/react/dist/csr/LockKey";
+import { MoonStars } from "@phosphor-icons/react/dist/csr/MoonStars";
+import { ShieldCheck } from "@phosphor-icons/react/dist/csr/ShieldCheck";
+import { TextAa } from "@phosphor-icons/react/dist/csr/TextAa";
+import { WarningCircle } from "@phosphor-icons/react/dist/csr/WarningCircle";
 import { RETENTION_POLICY, type StorageDurabilityStatus } from "../domain";
 import { KeyboardInput } from "../mobile";
 import {
@@ -31,6 +29,7 @@ export interface PreferencesWorkspaceProps {
   onBack: () => void;
   onSave: (value: MentorPreferences) => Promise<void>;
   onRequestPersistence?: () => Promise<void> | void;
+  appearanceContent?: ReactNode;
 }
 
 function updateAccessibilityClasses(accessibility: MentorPreferences["accessibility"]): void {
@@ -157,6 +156,7 @@ export function PreferencesWorkspace({
   onBack,
   onSave,
   onRequestPersistence,
+  appearanceContent,
 }: PreferencesWorkspaceProps) {
   const savedFingerprint = JSON.stringify(value);
   const [draft, setDraft] = useState<MentorPreferences>(() => normalizeMentorPreferences(value));
@@ -288,6 +288,7 @@ export function PreferencesWorkspace({
             </div>
           </header>
           <div className="preferences-workspace__accessibility-list">
+            {appearanceContent}
             <AccessibilityChoice icon={<TextAa size={21} />} title="Texto maior" description="Amplia a base tipográfica das áreas responsivas." checked={draft.accessibility.largerText} onChange={(checked) => setAccessibility("largerText", checked)} />
             <AccessibilityChoice icon={<Info size={21} />} title="Movimento reduzido" description="Remove animações e transições não essenciais." checked={draft.accessibility.reducedMotion} onChange={(checked) => setAccessibility("reducedMotion", checked)} />
             <AccessibilityChoice icon={<ShieldCheck size={21} />} title="Contraste reforçado" description="Escurece textos secundários e evidencia contornos." checked={draft.accessibility.highContrast} onChange={(checked) => setAccessibility("highContrast", checked)} />

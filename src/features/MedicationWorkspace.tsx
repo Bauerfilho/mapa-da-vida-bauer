@@ -1,18 +1,16 @@
-import {
-  ArrowLeft,
-  CalendarBlank,
-  Check,
-  CheckCircle,
-  Clock,
-  Info,
-  Minus,
-  Package,
-  Pill,
-  Plus,
-  Pulse,
-  ShieldCheck,
-  WarningCircle,
-} from "@phosphor-icons/react";
+import { ArrowLeft } from "@phosphor-icons/react/dist/csr/ArrowLeft";
+import { CalendarBlank } from "@phosphor-icons/react/dist/csr/CalendarBlank";
+import { Check } from "@phosphor-icons/react/dist/csr/Check";
+import { CheckCircle } from "@phosphor-icons/react/dist/csr/CheckCircle";
+import { Clock } from "@phosphor-icons/react/dist/csr/Clock";
+import { Info } from "@phosphor-icons/react/dist/csr/Info";
+import { Minus } from "@phosphor-icons/react/dist/csr/Minus";
+import { Package } from "@phosphor-icons/react/dist/csr/Package";
+import { Pill } from "@phosphor-icons/react/dist/csr/Pill";
+import { Plus } from "@phosphor-icons/react/dist/csr/Plus";
+import { Pulse } from "@phosphor-icons/react/dist/csr/Pulse";
+import { ShieldCheck } from "@phosphor-icons/react/dist/csr/ShieldCheck";
+import { WarningCircle } from "@phosphor-icons/react/dist/csr/WarningCircle";
 import { useMemo, useState, type FormEvent } from "react";
 import {
   todayInTimeZone,

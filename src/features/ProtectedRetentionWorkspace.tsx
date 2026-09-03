@@ -1,5 +1,11 @@
 import { useEffect, useRef, useState } from "react";
-import { Archive, ArrowClockwise, CheckCircle, FileArrowUp, LockKey, ShieldCheck, WarningCircle } from "@phosphor-icons/react";
+import { Archive } from "@phosphor-icons/react/dist/csr/Archive";
+import { ArrowClockwise } from "@phosphor-icons/react/dist/csr/ArrowClockwise";
+import { CheckCircle } from "@phosphor-icons/react/dist/csr/CheckCircle";
+import { FileArrowUp } from "@phosphor-icons/react/dist/csr/FileArrowUp";
+import { LockKey } from "@phosphor-icons/react/dist/csr/LockKey";
+import { ShieldCheck } from "@phosphor-icons/react/dist/csr/ShieldCheck";
+import { WarningCircle } from "@phosphor-icons/react/dist/csr/WarningCircle";
 import { KeyboardInput, useKeyboard } from "../mobile";
 import { applyProtectedRetention, discardProtectedRetentionProof, getProtectedRetentionPreview, prepareProtectedRetention, type RetentionReceipt } from "../data/protectedRetention";
 import { RETENTION_REASON_LABELS, type RetentionPlan, type RetentionReason } from "../domain/protectedRetention";

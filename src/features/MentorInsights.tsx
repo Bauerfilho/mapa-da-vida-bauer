@@ -1,12 +1,10 @@
 import { useId, type ReactNode } from "react";
-import {
-  ArrowRight,
-  CaretDown,
-  ChartBar,
-  Info,
-  Lightbulb,
-  ShieldCheck,
-} from "@phosphor-icons/react";
+import { ArrowRight } from "@phosphor-icons/react/dist/csr/ArrowRight";
+import { CaretDown } from "@phosphor-icons/react/dist/csr/CaretDown";
+import { ChartBar } from "@phosphor-icons/react/dist/csr/ChartBar";
+import { Info } from "@phosphor-icons/react/dist/csr/Info";
+import { Lightbulb } from "@phosphor-icons/react/dist/csr/Lightbulb";
+import { ShieldCheck } from "@phosphor-icons/react/dist/csr/ShieldCheck";
 import {
   Bar,
   BarChart,

@@ -1,5 +1,11 @@
 import { useEffect, useId, useMemo, useState } from "react";
-import { ArrowLeft, ArrowRight, CaretDown, ChartLine, Info, ListNumbers, Plus } from "@phosphor-icons/react";
+import { ArrowLeft } from "@phosphor-icons/react/dist/csr/ArrowLeft";
+import { ArrowRight } from "@phosphor-icons/react/dist/csr/ArrowRight";
+import { CaretDown } from "@phosphor-icons/react/dist/csr/CaretDown";
+import { ChartLine } from "@phosphor-icons/react/dist/csr/ChartLine";
+import { Info } from "@phosphor-icons/react/dist/csr/Info";
+import { ListNumbers } from "@phosphor-icons/react/dist/csr/ListNumbers";
+import { Plus } from "@phosphor-icons/react/dist/csr/Plus";
 import { CartesianGrid, Line, LineChart, ReferenceLine, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import { buildMetricSeries, formatSignalDate, formatSignalValue, METRIC_SIGNALS, observationTime, type MetricSignalId, type SignalPoint } from "../domain/metricSeries";
 import type { Domain, InclusiveDateWindow, MentorEntity } from "../domain/model";

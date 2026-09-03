@@ -1,13 +1,48 @@
 import { useEffect, useMemo, useRef, useState, type KeyboardEvent, type ReactNode } from "react";
-import {
-  Archive, ArrowCounterClockwise, ArrowLeft, ArrowRight, Bank, Bed, BookOpen,
-  BowlFood, Brain, CalendarDots, CaretRight, ChartLineUp, Check, CheckCircle,
-  Calculator, Circle, ClipboardText, Clock, CloudCheck, CompassRose, CreditCard,
-  CurrencyCircleDollar, FileArrowDown, FileArrowUp, FirstAid, GearFine,
-  GraduationCap, HeadCircuit, Heart, House, Info, Lightbulb, ListChecks,
-  LockKey, MoonStars, NotePencil, Pill, Plus, ShieldCheck, SignOut, Smiley,
-  TrendUp, UserCircle, Wallet,
-} from "@phosphor-icons/react";
+import { Archive } from "@phosphor-icons/react/dist/csr/Archive";
+import { ArrowCounterClockwise } from "@phosphor-icons/react/dist/csr/ArrowCounterClockwise";
+import { ArrowLeft } from "@phosphor-icons/react/dist/csr/ArrowLeft";
+import { ArrowRight } from "@phosphor-icons/react/dist/csr/ArrowRight";
+import { Bank } from "@phosphor-icons/react/dist/csr/Bank";
+import { Bed } from "@phosphor-icons/react/dist/csr/Bed";
+import { BookOpen } from "@phosphor-icons/react/dist/csr/BookOpen";
+import { BowlFood } from "@phosphor-icons/react/dist/csr/BowlFood";
+import { Brain } from "@phosphor-icons/react/dist/csr/Brain";
+import { CalendarDots } from "@phosphor-icons/react/dist/csr/CalendarDots";
+import { CaretRight } from "@phosphor-icons/react/dist/csr/CaretRight";
+import { ChartLineUp } from "@phosphor-icons/react/dist/csr/ChartLineUp";
+import { Check } from "@phosphor-icons/react/dist/csr/Check";
+import { CheckCircle } from "@phosphor-icons/react/dist/csr/CheckCircle";
+import { Calculator } from "@phosphor-icons/react/dist/csr/Calculator";
+import { Circle } from "@phosphor-icons/react/dist/csr/Circle";
+import { ClipboardText } from "@phosphor-icons/react/dist/csr/ClipboardText";
+import { Clock } from "@phosphor-icons/react/dist/csr/Clock";
+import { CloudCheck } from "@phosphor-icons/react/dist/csr/CloudCheck";
+import { CompassRose } from "@phosphor-icons/react/dist/csr/CompassRose";
+import { CreditCard } from "@phosphor-icons/react/dist/csr/CreditCard";
+import { CurrencyCircleDollar } from "@phosphor-icons/react/dist/csr/CurrencyCircleDollar";
+import { FileArrowDown } from "@phosphor-icons/react/dist/csr/FileArrowDown";
+import { FileArrowUp } from "@phosphor-icons/react/dist/csr/FileArrowUp";
+import { FirstAid } from "@phosphor-icons/react/dist/csr/FirstAid";
+import { GearFine } from "@phosphor-icons/react/dist/csr/GearFine";
+import { GraduationCap } from "@phosphor-icons/react/dist/csr/GraduationCap";
+import { HeadCircuit } from "@phosphor-icons/react/dist/csr/HeadCircuit";
+import { Heart } from "@phosphor-icons/react/dist/csr/Heart";
+import { House } from "@phosphor-icons/react/dist/csr/House";
+import { Info } from "@phosphor-icons/react/dist/csr/Info";
+import { Lightbulb } from "@phosphor-icons/react/dist/csr/Lightbulb";
+import { ListChecks } from "@phosphor-icons/react/dist/csr/ListChecks";
+import { LockKey } from "@phosphor-icons/react/dist/csr/LockKey";
+import { MoonStars } from "@phosphor-icons/react/dist/csr/MoonStars";
+import { NotePencil } from "@phosphor-icons/react/dist/csr/NotePencil";
+import { Pill } from "@phosphor-icons/react/dist/csr/Pill";
+import { Plus } from "@phosphor-icons/react/dist/csr/Plus";
+import { ShieldCheck } from "@phosphor-icons/react/dist/csr/ShieldCheck";
+import { SignOut } from "@phosphor-icons/react/dist/csr/SignOut";
+import { Smiley } from "@phosphor-icons/react/dist/csr/Smiley";
+import { TrendUp } from "@phosphor-icons/react/dist/csr/TrendUp";
+import { UserCircle } from "@phosphor-icons/react/dist/csr/UserCircle";
+import { Wallet } from "@phosphor-icons/react/dist/csr/Wallet";
 import {
   CartesianGrid, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis,
 } from "recharts";
@@ -76,6 +111,8 @@ import { ObstetricsWorkspace } from "./features/ObstetricsWorkspace";
 import { MedicationWorkspace } from "./features/MedicationWorkspace";
 import { LaboratoryWorkspace } from "./features/LaboratoryWorkspace";
 import { ClinicalToolsWorkspace } from "./features/ClinicalToolsWorkspace";
+import { SuiteAppearanceControls, SuiteBackdrop, SuiteMotionControl, useSuiteAppearance } from "./appearance/SuiteAppearance";
+import "./appearance/suite-appearance.css";
 import { createEmptySoapDraft, type SoapDraft } from "./domain/clinicalReference";
 import { LegacyImportForm } from "./features/LegacyImportForm";
 import { StudiesWorkspace } from "./features/StudiesWorkspace";
@@ -148,6 +185,8 @@ const formatLongDate = (date: Date) => new Intl.DateTimeFormat("pt-BR", { weekda
 const nowTime = () => localTimeInTimeZone();
 
 export default function Prototype() {
+  const suiteRootRef = useRef<HTMLDivElement | null>(null);
+  const { theme: suiteTheme, setTheme: setSuiteTheme, paused: suitePaused, setPaused: setSuitePaused } = useSuiteAppearance();
   const visualDemo = useMemo(visualMode, []);
   const mentor = useMentorData();
   const currentLocalDate = mentor.snapshot?.localDate ?? todayInTimeZone();
@@ -178,6 +217,35 @@ export default function Prototype() {
   const [toast, setToast] = useState<string | null>(null);
   const [toastAction, setToastAction] = useState<{ label: string; run: () => Promise<void> } | null>(null);
   const toastTimer = useRef<number | null>(null);
+
+  // A cor alcança as folhas modais sem alterar o runtime móvel protegido.
+  useEffect(() => {
+    const root = suiteRootRef.current;
+    if (!root) return;
+    const portalRoot = root.closest<HTMLElement>(".device-screen") ?? document.documentElement;
+    const names = ["--paper", "--paper-warm", "--surface", "--ink", "--ink-soft", "--muted", "--wine", "--wine-dark", "--gold", "--gold-light", "--green", "--blue", "--blue-select", "--blue-soft", "--navy", "--red", "--orange", "--focus", "--control-border"];
+    const previousTokens = new Map(names.map((name) => [name, portalRoot.style.getPropertyValue(name)]));
+    const previousTheme = portalRoot.dataset.suiteTheme;
+    const previousModule = portalRoot.dataset.suiteModule;
+    const previousColorScheme = portalRoot.style.colorScheme;
+    const metaTheme = document.querySelector<HTMLMetaElement>('meta[name="theme-color"]');
+    const previousMetaTheme = metaTheme?.content;
+    const computed = getComputedStyle(root);
+    portalRoot.classList.add("mentor-suite-portal");
+    portalRoot.dataset.suiteTheme = suiteTheme;
+    portalRoot.dataset.suiteModule = "mentor";
+    portalRoot.style.colorScheme = suiteTheme;
+    names.forEach((name) => portalRoot.style.setProperty(name, computed.getPropertyValue(name)));
+    if (metaTheme) metaTheme.content = suiteTheme === "dark" ? "#100f16" : "#faf6f2";
+    return () => {
+      portalRoot.classList.remove("mentor-suite-portal");
+      if (previousTheme === undefined) delete portalRoot.dataset.suiteTheme; else portalRoot.dataset.suiteTheme = previousTheme;
+      if (previousModule === undefined) delete portalRoot.dataset.suiteModule; else portalRoot.dataset.suiteModule = previousModule;
+      portalRoot.style.colorScheme = previousColorScheme;
+      previousTokens.forEach((value, name) => { if (value) portalRoot.style.setProperty(name, value); else portalRoot.style.removeProperty(name); });
+      if (metaTheme && previousMetaTheme !== undefined) metaTheme.content = previousMetaTheme;
+    };
+  }, [suiteTheme]);
 
   // O rascunho atravessa as subáreas do Internato, mas nunca sai desse ciclo de vida nem vai ao banco.
   useEffect(() => {
@@ -520,6 +588,7 @@ export default function Prototype() {
   const content = preferencesOpen ? (
     <PreferencesWorkspace
       value={preferences}
+      appearanceContent={<SuiteMotionControl paused={suitePaused} reducedMotion={preferences.accessibility.reducedMotion} onPausedChange={setSuitePaused} />}
       storage={mentor.workspace?.storage ?? null}
       saving={mentor.saving}
       onBack={() => setPreferencesOpen(false)}
@@ -602,8 +671,11 @@ export default function Prototype() {
           ? <><ArchiveWorkspace maintenance={<ProtectedRetentionWorkspace dataRevision={mentor.workspace.dataset.dataRevision} onDataChange={() => { void mentor.refresh(); }} onBackup={() => setSheet({ kind: "backup" })} />} entities={mentor.workspace.entities} deletedEntities={mentor.workspace.deletedEntities} currentLocalDate={mentor.workspace.referenceLocalDate} storage={mentor.workspace.storage} onBackup={() => setSheet({ kind: "backup" })} onRestore={() => setSheet({ kind: "restore" })} onPreferences={() => { dismissInput(); setEditingEntity(null); setPreferencesOpen(true); }} onEdit={(entity) => { dismissInput(); setEditingEntity(entity); }} onDelete={deleteArchiveEntity} onRestoreEntity={restoreArchiveEntity} onRequestPersistence={async () => { const result = await mentor.actions.requestStoragePersistence(); showToast(result.storage.persisted ? "Proteção persistente confirmada" : "O iPhone não confirmou a proteção; mantenha backups recentes"); }} onExportJson={() => exportReadable("json")} onExportCsv={() => exportReadable("csv")} onClinicianReport={() => setSheet({ kind: "clinician" })} /><RestoreConflictReviewLauncher onOpen={() => setSheet({ kind: "conflicts" })} /></>
           : <WorkspaceGate title="Arquivo" loading={mentor.loading} error={mentor.error} onRetry={() => { void mentor.refresh(); }} />;
 
-  return <>
+  return <div ref={suiteRootRef} className="suite-shell" data-suite-module="mentor" data-suite-theme={suiteTheme}>
+    <SuiteBackdrop module="mentor" theme={suiteTheme} paused={suitePaused || preferences.accessibility.reducedMotion} />
+    <div className="suite-content">
     <MobileScroll key={preferencesOpen ? "preferences" : focusedDomain ?? activeTab} className={`app-screen mentor-shell ${preferenceAccessibilityKey}`.trim()}><main className="screen-content" data-testid="mentor-app">{content}</main></MobileScroll>
+    <div className="suite-quick-controls"><SuiteAppearanceControls theme={suiteTheme} onThemeChange={setSuiteTheme} /></div>
     <BottomNav active={activeTab} onChange={changeTab} />
     {toast ? <div className="mentor-toast" role="status" aria-live="polite"><CheckCircle size={18} weight="fill" /><span>{toast}</span>{toastAction ? <button type="button" onClick={() => { const action = toastAction; setToastAction(null); void action.run().catch(() => showToast("Não foi possível desfazer; o registro segue recuperável no Arquivo")); }}>{toastAction.label}</button> : null}</div> : null}
     <ActionSheets
@@ -654,7 +726,8 @@ export default function Prototype() {
       onSaved={saveDomainEvent}
       onNotice={(message) => { closeSheet(); showToast(message); }}
     />
-  </>;
+    </div>
+  </div>;
 }
 
 function BrandHeader({ saveState, online, lastBackupCreatedAt, onBackup }: { saveState: string; online: boolean; lastBackupCreatedAt: string | null; onBackup: () => void }) {

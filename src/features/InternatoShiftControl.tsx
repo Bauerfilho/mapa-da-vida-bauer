@@ -1,16 +1,14 @@
 import { useEffect, useMemo, useState } from "react";
-import {
-  ArrowRight,
-  CalendarBlank,
-  Check,
-  Clock,
-  Coffee,
-  Info,
-  MoonStars,
-  Plus,
-  ShieldCheck,
-  WarningCircle,
-} from "@phosphor-icons/react";
+import { ArrowRight } from "@phosphor-icons/react/dist/csr/ArrowRight";
+import { CalendarBlank } from "@phosphor-icons/react/dist/csr/CalendarBlank";
+import { Check } from "@phosphor-icons/react/dist/csr/Check";
+import { Clock } from "@phosphor-icons/react/dist/csr/Clock";
+import { Coffee } from "@phosphor-icons/react/dist/csr/Coffee";
+import { Info } from "@phosphor-icons/react/dist/csr/Info";
+import { MoonStars } from "@phosphor-icons/react/dist/csr/MoonStars";
+import { Plus } from "@phosphor-icons/react/dist/csr/Plus";
+import { ShieldCheck } from "@phosphor-icons/react/dist/csr/ShieldCheck";
+import { WarningCircle } from "@phosphor-icons/react/dist/csr/WarningCircle";
 import { KeyboardInput } from "../mobile";
 import {
   APP_TIME_ZONE,

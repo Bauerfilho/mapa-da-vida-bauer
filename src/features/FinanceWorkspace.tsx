@@ -1,32 +1,30 @@
-import {
-  ArrowLeft,
-  Bank,
-  Calculator,
-  CalendarBlank,
-  CaretDown,
-  CaretRight,
-  ChartLineUp,
-  Check,
-  CheckCircle,
-  ClockCountdown,
-  Coins,
-  CreditCard,
-  CurrencyCircleDollar,
-  Gauge,
-  Info,
-  LockKey,
-  Plus,
-  Receipt,
-  ShieldCheck,
-  Stack,
-  Target,
-  Trash,
-  TrendDown,
-  TrendUp,
-  Wallet,
-  Warning,
-  type Icon,
-} from "@phosphor-icons/react";
+import { ArrowLeft } from "@phosphor-icons/react/dist/csr/ArrowLeft";
+import { Bank } from "@phosphor-icons/react/dist/csr/Bank";
+import { Calculator } from "@phosphor-icons/react/dist/csr/Calculator";
+import { CalendarBlank } from "@phosphor-icons/react/dist/csr/CalendarBlank";
+import { CaretDown } from "@phosphor-icons/react/dist/csr/CaretDown";
+import { CaretRight } from "@phosphor-icons/react/dist/csr/CaretRight";
+import { ChartLineUp } from "@phosphor-icons/react/dist/csr/ChartLineUp";
+import { Check } from "@phosphor-icons/react/dist/csr/Check";
+import { CheckCircle } from "@phosphor-icons/react/dist/csr/CheckCircle";
+import { ClockCountdown } from "@phosphor-icons/react/dist/csr/ClockCountdown";
+import { Coins } from "@phosphor-icons/react/dist/csr/Coins";
+import { CreditCard } from "@phosphor-icons/react/dist/csr/CreditCard";
+import { CurrencyCircleDollar } from "@phosphor-icons/react/dist/csr/CurrencyCircleDollar";
+import { Gauge } from "@phosphor-icons/react/dist/csr/Gauge";
+import { Info } from "@phosphor-icons/react/dist/csr/Info";
+import { LockKey } from "@phosphor-icons/react/dist/csr/LockKey";
+import { Plus } from "@phosphor-icons/react/dist/csr/Plus";
+import { Receipt } from "@phosphor-icons/react/dist/csr/Receipt";
+import { ShieldCheck } from "@phosphor-icons/react/dist/csr/ShieldCheck";
+import { Stack } from "@phosphor-icons/react/dist/csr/Stack";
+import { Target } from "@phosphor-icons/react/dist/csr/Target";
+import { Trash } from "@phosphor-icons/react/dist/csr/Trash";
+import { TrendDown } from "@phosphor-icons/react/dist/csr/TrendDown";
+import { TrendUp } from "@phosphor-icons/react/dist/csr/TrendUp";
+import { Wallet } from "@phosphor-icons/react/dist/csr/Wallet";
+import { Warning } from "@phosphor-icons/react/dist/csr/Warning";
+import type { Icon } from "@phosphor-icons/react";
 import {
   useEffect,
   useMemo,

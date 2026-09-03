@@ -1,28 +1,26 @@
-import {
-  ArrowLeft,
-  ArrowRight,
-  BatteryHigh,
-  CalendarBlank,
-  Check,
-  CheckCircle,
-  Clock,
-  Coffee,
-  Compass,
-  FirstAid,
-  GraduationCap,
-  Info,
-  ListChecks,
-  Moon,
-  Plus,
-  Repeat,
-  ShieldCheck,
-  Sparkle,
-  SunHorizon,
-  Timer,
-  TrendUp,
-  Warning,
-  type Icon,
-} from "@phosphor-icons/react";
+import { ArrowLeft } from "@phosphor-icons/react/dist/csr/ArrowLeft";
+import { ArrowRight } from "@phosphor-icons/react/dist/csr/ArrowRight";
+import { BatteryHigh } from "@phosphor-icons/react/dist/csr/BatteryHigh";
+import { CalendarBlank } from "@phosphor-icons/react/dist/csr/CalendarBlank";
+import { Check } from "@phosphor-icons/react/dist/csr/Check";
+import { CheckCircle } from "@phosphor-icons/react/dist/csr/CheckCircle";
+import { Clock } from "@phosphor-icons/react/dist/csr/Clock";
+import { Coffee } from "@phosphor-icons/react/dist/csr/Coffee";
+import { Compass } from "@phosphor-icons/react/dist/csr/Compass";
+import { FirstAid } from "@phosphor-icons/react/dist/csr/FirstAid";
+import { GraduationCap } from "@phosphor-icons/react/dist/csr/GraduationCap";
+import { Info } from "@phosphor-icons/react/dist/csr/Info";
+import { ListChecks } from "@phosphor-icons/react/dist/csr/ListChecks";
+import { Moon } from "@phosphor-icons/react/dist/csr/Moon";
+import { Plus } from "@phosphor-icons/react/dist/csr/Plus";
+import { Repeat } from "@phosphor-icons/react/dist/csr/Repeat";
+import { ShieldCheck } from "@phosphor-icons/react/dist/csr/ShieldCheck";
+import { Sparkle } from "@phosphor-icons/react/dist/csr/Sparkle";
+import { SunHorizon } from "@phosphor-icons/react/dist/csr/SunHorizon";
+import { Timer } from "@phosphor-icons/react/dist/csr/Timer";
+import { TrendUp } from "@phosphor-icons/react/dist/csr/TrendUp";
+import { Warning } from "@phosphor-icons/react/dist/csr/Warning";
+import type { Icon } from "@phosphor-icons/react";
 import { useMemo, useState, type FormEvent, type ReactNode } from "react";
 import { KeyboardInput, KeyboardTextarea } from "../mobile";
 import {

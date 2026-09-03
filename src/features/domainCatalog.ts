@@ -1,20 +1,18 @@
-import {
-  BookBookmark,
-  BowlFood,
-  CalendarDots,
-  FirstAid,
-  GraduationCap,
-  HeadCircuit,
-  ListChecks,
-  MoonStars,
-  Pill,
-  Robot,
-  Smiley,
-  Tooth,
-  Wallet,
-  TestTube,
-  type Icon,
-} from "@phosphor-icons/react";
+import { BookBookmark } from "@phosphor-icons/react/dist/csr/BookBookmark";
+import { BowlFood } from "@phosphor-icons/react/dist/csr/BowlFood";
+import { CalendarDots } from "@phosphor-icons/react/dist/csr/CalendarDots";
+import { FirstAid } from "@phosphor-icons/react/dist/csr/FirstAid";
+import { GraduationCap } from "@phosphor-icons/react/dist/csr/GraduationCap";
+import { HeadCircuit } from "@phosphor-icons/react/dist/csr/HeadCircuit";
+import { ListChecks } from "@phosphor-icons/react/dist/csr/ListChecks";
+import { MoonStars } from "@phosphor-icons/react/dist/csr/MoonStars";
+import { Pill } from "@phosphor-icons/react/dist/csr/Pill";
+import { Robot } from "@phosphor-icons/react/dist/csr/Robot";
+import { Smiley } from "@phosphor-icons/react/dist/csr/Smiley";
+import { Tooth } from "@phosphor-icons/react/dist/csr/Tooth";
+import { Wallet } from "@phosphor-icons/react/dist/csr/Wallet";
+import { TestTube } from "@phosphor-icons/react/dist/csr/TestTube";
+import type { Icon } from "@phosphor-icons/react";
 import type { Domain } from "../domain";
 
 export type DomainTone =

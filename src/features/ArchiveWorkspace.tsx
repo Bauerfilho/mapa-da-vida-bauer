@@ -1,21 +1,19 @@
 import { useId, useMemo, useState, type ReactNode } from "react";
-import {
-  Archive,
-  ArrowCounterClockwise,
-  CaretRight,
-  CheckCircle,
-  Database,
-  FileArrowDown,
-  FileArrowUp,
-  FileCode,
-  FileCsv,
-  FileText,
-  MagnifyingGlass,
-  PencilSimple,
-  ShieldCheck,
-  SlidersHorizontal,
-  Trash,
-} from "@phosphor-icons/react";
+import { Archive } from "@phosphor-icons/react/dist/csr/Archive";
+import { ArrowCounterClockwise } from "@phosphor-icons/react/dist/csr/ArrowCounterClockwise";
+import { CaretRight } from "@phosphor-icons/react/dist/csr/CaretRight";
+import { CheckCircle } from "@phosphor-icons/react/dist/csr/CheckCircle";
+import { Database } from "@phosphor-icons/react/dist/csr/Database";
+import { FileArrowDown } from "@phosphor-icons/react/dist/csr/FileArrowDown";
+import { FileArrowUp } from "@phosphor-icons/react/dist/csr/FileArrowUp";
+import { FileCode } from "@phosphor-icons/react/dist/csr/FileCode";
+import { FileCsv } from "@phosphor-icons/react/dist/csr/FileCsv";
+import { FileText } from "@phosphor-icons/react/dist/csr/FileText";
+import { MagnifyingGlass } from "@phosphor-icons/react/dist/csr/MagnifyingGlass";
+import { PencilSimple } from "@phosphor-icons/react/dist/csr/PencilSimple";
+import { ShieldCheck } from "@phosphor-icons/react/dist/csr/ShieldCheck";
+import { SlidersHorizontal } from "@phosphor-icons/react/dist/csr/SlidersHorizontal";
+import { Trash } from "@phosphor-icons/react/dist/csr/Trash";
 import type {
   Domain,
   LocalDate,

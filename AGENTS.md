@@ -1,5 +1,12 @@
 # Mobile Prototype Agent Guide
 
+## Aparência aprovada em 03/09/2026
+
+- Aurora vinho B e grade rubi fina, com claro editorial preservado. O modo escuro foi solicitado explicitamente e supera a antiga limitação ao claro.
+- Interface minimalista: apenas um botão sem texto, sol quando escuro e lua quando claro, com virada breve. Não recolocar barra segmentada, caixa grande ou fonte diferente da identidade Jost/Cormorant.
+- Movimento pode ser pausado nas preferências, respeita redução de movimento e não envolve dados pessoais. Runtime protegido permanece intacto.
+- Esta publicação contém somente aparência. Experimentos de SOAP persistente, Clara e HUB ficam na cópia de desenvolvimento, fora deste repositório até aprovação.
+
 ## Mentor Bauer vNext — Accepted Product Direction
 
 - Master functional source: `/workspace/scratch/8c53b47f3924/Plano_Mestre_Mentor_Bauer_vNext.md`.
