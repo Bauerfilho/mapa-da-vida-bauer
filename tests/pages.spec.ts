@@ -13,6 +13,35 @@ async function appearanceHome(page: import("@playwright/test").Page) {
   await page.getByRole("button", { name: "Hoje", exact: true }).click();
 }
 
+test("área segura superior desloca conteúdo e controles sem recuar a Aurora", async ({ page }) => {
+  await page.goto("./");
+  const before = await page.evaluate(() => ({
+    backdrop: document.querySelector(".suite-backdrop")!.getBoundingClientRect().top,
+    header: document.querySelector(".brand-header")!.getBoundingClientRect().top,
+    toggle: document.querySelector(".suite-theme-toggle")!.getBoundingClientRect().top,
+  }));
+
+  await page.locator("[data-phone-screen]").evaluate((screen) => {
+    (screen as HTMLElement).style.setProperty("--device-safe-area-top", "59px");
+  });
+
+  const after = await page.evaluate(() => ({
+    backdrop: document.querySelector(".suite-backdrop")!.getBoundingClientRect().top,
+    header: document.querySelector(".brand-header")!.getBoundingClientRect().top,
+    toggle: document.querySelector(".suite-theme-toggle")!.getBoundingClientRect().top,
+  }));
+  expect(after.backdrop).toBe(before.backdrop);
+  expect(after.header - before.header).toBeCloseTo(59, 0);
+  expect(after.toggle - before.toggle).toBeCloseTo(59, 0);
+
+  await page.getByRole("button", { name: "Ativar tema claro", exact: true }).click();
+  const lightStatusBacking = await page.locator(".suite-backdrop").evaluate((backdrop) => {
+    const style = getComputedStyle(backdrop, "::after");
+    return { backgroundColor: style.backgroundColor, height: style.height };
+  });
+  expect(lightStatusBacking).toEqual({ backgroundColor: "rgb(16, 15, 22)", height: "59px" });
+});
+
 test("aurora mantém um único botão minimalista, pausa real e tema salvo offline", async ({ page, context }, testInfo) => {
   const errors: string[] = [];
   page.on("pageerror", (error) => errors.push(error.message));

@@ -47,6 +47,31 @@
 .mobile-app-viewport[data-runtime-mode="preview"] .suite-quick-controls { top: 40px; }
 .mobile-app-viewport[data-runtime-mode="preview"] .suite-shell .page { padding-top: 88px; }
 
+/* No PWA instalado, a Aurora ocupa a barra do iOS e o conteúdo respeita o recorte físico. */
+.mobile-app-viewport[data-runtime-mode="native"] .suite-quick-controls {
+  top: calc(4px + var(--device-safe-area-top, 0px));
+}
+.mobile-app-viewport[data-runtime-mode="native"] .suite-shell .page {
+  padding-top: calc(52px + var(--device-safe-area-top, 0px));
+}
+.mobile-app-viewport[data-runtime-mode="native"] .suite-backdrop__fallback {
+  top: calc(4px + var(--device-safe-area-top, 0px));
+}
+
+/* black-translucent usa ícones claros; no tema claro, uma faixa vinho dá contraste só à área segura. */
+.mobile-app-viewport[data-runtime-mode="native"]
+  .suite-shell[data-suite-theme="light"]
+  .suite-backdrop::after {
+  position: absolute;
+  z-index: 3;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: var(--device-safe-area-top, 0px);
+  background: #100f16;
+  content: "";
+}
+
 /* BottomSheets vivem num portal irmão; os tokens são espelhados pelo Prototype. */
 .mentor-suite-portal[data-suite-theme="dark"] .bottom-sheet {
   border: 1px solid var(--gold-light);

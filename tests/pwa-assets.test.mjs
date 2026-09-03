@@ -7,6 +7,10 @@ const projectUrl = new URL("../", import.meta.url);
 const swSource = await readFile(new URL("public/sw.js", projectUrl), "utf8");
 const pwaSource = await readFile(new URL("src/pwa.ts", projectUrl), "utf8");
 const indexSource = await readFile(new URL("index.html", projectUrl), "utf8");
+const suiteAppearanceSource = await readFile(
+  new URL("src/appearance/suite-appearance.css", projectUrl),
+  "utf8",
+);
 const manifest = JSON.parse(await readFile(new URL("public/manifest.webmanifest", projectUrl), "utf8"));
 const origin = "https://mentor.test";
 
@@ -212,6 +216,22 @@ test("manifest is installable and scoped to the private app", () => {
   assert.equal(manifest.prefer_related_applications, false);
   assert.ok(manifest.icons.some((icon) => icon.sizes === "192x192"));
   assert.ok(manifest.icons.some((icon) => icon.sizes === "512x512" && icon.purpose === "maskable"));
+});
+
+test("o PWA iOS ocupa a barra de status sem cobrir os controles", () => {
+  assert.match(indexSource, /viewport-fit=cover/);
+  assert.match(
+    indexSource,
+    /name="apple-mobile-web-app-status-bar-style" content="black-translucent"/,
+  );
+  assert.match(
+    suiteAppearanceSource,
+    /\.mobile-app-viewport\[data-runtime-mode="native"\] \.suite-quick-controls\s*\{[^}]*var\(--device-safe-area-top/s,
+  );
+  assert.match(
+    suiteAppearanceSource,
+    /\.mobile-app-viewport\[data-runtime-mode="native"\] \.suite-shell \.page\s*\{[^}]*var\(--device-safe-area-top/s,
+  );
 });
 
 test("the document declares a restrictive local-first content policy", () => {

@@ -3,7 +3,7 @@
  * Version v6 starts the immutable, user-activated update contract: checking or
  * downloading an update never changes the shell served by the active worker.
  */
-export const MENTOR_PWA_CACHE_VERSION = "2026-09-03-v21";
+export const MENTOR_PWA_CACHE_VERSION = "2026-09-03-v22";
 
 // Vite injeta a base da hospedagem; testes Node e desenvolvimento raiz usam /.
 const PWA_SCOPE = import.meta.env?.BASE_URL ?? "/";

@@ -10,7 +10,7 @@ const appPath = (relative) => `${APP_BASE}${relative.replace(/^\//, "")}`;
 // cannot be changed retroactively. It may still fetch the server's newer index
 // before this v6 worker is activated. Opt-in shell pinning is guaranteed from
 // v6 onward, after the user activates this worker once.
-const SHELL_CACHE_VERSION = "2026-09-03-v21";
+const SHELL_CACHE_VERSION = "2026-09-03-v22";
 const SHELL_CACHE = `${SHELL_CACHE_PREFIX}${SHELL_CACHE_VERSION}`;
 
 const CACHE_STATUS_REQUEST = "MENTOR_PWA_CACHE_STATUS";
